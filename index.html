@@ -441,6 +441,47 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
+
+/* ---------- Erweiterung: Keno, HiLo, Glücksrad, Aufgaben ---------- */
+.keno-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:7px;width:min(100%,520px)}
+.kn{
+  aspect-ratio:1;border:0;border-radius:10px;background:rgba(255,255,255,.09);
+  font-weight:700;font-size:15px;box-shadow:inset 0 -3px 0 rgba(0,0,0,.25);transition:transform .1s,background .15s;
+}
+.kn:hover{background:rgba(255,255,255,.18)}
+.kn.pick{background:var(--brass);color:var(--brass-ink)}
+.kn.drawn{background:rgba(0,0,0,.45);color:rgba(244,234,220,.45);box-shadow:none}
+.kn.hit{background:var(--win);color:#06281a;transform:scale(1.06)}
+.keno-pay{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;min-height:30px}
+.keno-pay .chipr{background:rgba(0,0,0,.3);color:rgba(244,234,220,.85)}
+.keno-pay .chipr.w{background:var(--win);color:#06281a;border-color:var(--win)}
+.keno-pay .note{color:rgba(244,234,220,.7)}
+
+.hilo{min-height:156px;align-items:flex-end}
+.hilo .card{opacity:.6;transform:scale(.86);transform-origin:bottom}
+.hilo .card:last-child{opacity:1;transform:none;width:108px;height:156px;font-size:28px}
+.hilo .card:last-child i{font-size:52px}
+.btn.tall{flex-direction:column;gap:3px;padding:12px 8px}
+.btn.tall small{font-weight:500;font-size:12.5px;color:var(--muted)}
+
+.fwheel{position:relative;width:min(380px,78vw);aspect-ratio:1}
+.fwheel canvas{width:100%;height:100%;display:block;border-radius:50%;transition:transform 4s cubic-bezier(.12,.6,.1,1)}
+.fwheel i{
+  position:absolute;left:50%;top:-10px;margin-left:-14px;
+  border:14px solid transparent;border-top:26px solid var(--ink);filter:drop-shadow(0 3px 3px rgba(0,0,0,.5));
+}
+
+.quests{display:grid;gap:12px}
+.quests li > div:first-child{display:flex;justify-content:space-between;gap:10px;font-size:14px;margin-bottom:6px}
+.quests b{color:var(--brass);white-space:nowrap}
+.quests .meter{width:100%}
+.quests .done span{color:var(--muted);text-decoration:line-through}
+.quests .done b{color:var(--win)}
+.quests .done .meter i{background:var(--win)}
+@media (max-width:820px){
+  .keno-grid{gap:5px} .kn{font-size:13px;border-radius:8px}
+  .hilo .card:last-child{width:88px;height:128px}
+}
 </style>
 </head>
 <body>
@@ -454,6 +495,10 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
     <symbol id="i-blackjack" viewBox="0 0 24 24"><rect x="4" y="5" width="11" height="15" rx="2" transform="rotate(-8 9.5 12.5)"/><rect x="10" y="4" width="11" height="15" rx="2" transform="rotate(8 15.5 11.5)"/><path d="M15.5 9c-2 2-3 3-3 4.2a1.6 1.6 0 0 0 3 .8 1.6 1.6 0 0 0 3-.8c0-1.200-1-2.200-3-4.200z" transform="rotate(8 15.5 11.5)"/></symbol>
     <symbol id="i-roulette" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v6M12 15v6M3 12h6M15 12h6M5.600 5.600l4.300 4.300M14.100 14.100l4.300 4.300M18.400 5.600l-4.300 4.300M9.900 14.100l-4.300 4.300"/></symbol>
     <symbol id="i-crash" viewBox="0 0 24 24"><path d="M3 20c7-1 12-5 16-15"/><path d="M14.500 5H19v4.500"/><path d="M3 3v18h18"/></symbol>
+    <symbol id="i-limbo" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+    <symbol id="i-keno" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><circle cx="8.5" cy="8.5" r="1.6"/><circle cx="15.5" cy="8.5" r="1.6"/><circle cx="8.5" cy="15.5" r="1.6"/><path d="M13.5 15.5l1.5 1.5 3-3.5"/></symbol>
+    <symbol id="i-hilo" viewBox="0 0 24 24"><path d="M8 20V5M4 9l4-4 4 4M16 4v15M12 15l4 4 4-4"/></symbol>
+    <symbol id="i-wheel" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="8"/><path d="M12 13.5v-8M12 13.5l6.9 4M12 13.5l-6.9 4M10.3 2h3.4L12 5.5z"/></symbol>
     <symbol id="i-rang" viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4c0 3 1.500 4.500 3.500 5M17 6h3c0 3-1.500 4.500-3.500 5M12 14v4M8.500 20h7"/></symbol>
     <symbol id="i-profil" viewBox="0 0 24 24"><circle cx="12" cy="8.500" r="4"/><path d="M4.500 20.500c1-4 4-5.500 7.500-5.500s6.500 1.500 7.500 5.500"/></symbol>
     <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.500v3M12 18.500v3M2.500 12h3M18.500 12h3M5.300 5.300l2.100 2.100M16.600 16.600l2.100 2.100M18.700 5.300l-2.100 2.100M7.400 16.600l-2.100 2.100"/></symbol>
@@ -474,6 +519,10 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
     <button class="nav" data-go="blackjack"><svg class="ico"><use href="#i-blackjack"/></svg>Blackjack</button>
     <button class="nav" data-go="roulette"><svg class="ico"><use href="#i-roulette"/></svg>Roulette</button>
     <button class="nav" data-go="crash"><svg class="ico"><use href="#i-crash"/></svg>Crash</button>
+    <button class="nav" data-go="limbo"><svg class="ico"><use href="#i-limbo"/></svg>Limbo</button>
+    <button class="nav" data-go="keno"><svg class="ico"><use href="#i-keno"/></svg>Keno</button>
+    <button class="nav" data-go="hilo"><svg class="ico"><use href="#i-hilo"/></svg>HiLo</button>
+    <button class="nav" data-go="wheel"><svg class="ico"><use href="#i-wheel"/></svg>Glücksrad</button>
     <h2>Konto</h2>
     <button class="nav" data-go="rang"><svg class="ico"><use href="#i-rang"/></svg>Rangliste</button>
     <button class="nav" data-go="profil"><svg class="ico"><use href="#i-profil"/></svg>Profil</button>
@@ -505,6 +554,10 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
             </div>
           </div>
           <div>
+            <h2>Tagesaufgaben</h2>
+            <ul class="quests" id="quests"></ul>
+          </div>
+          <div>
             <h2>Letzte Runden</h2>
             <ul class="feed" id="feed"></ul>
           </div>
@@ -522,6 +575,7 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
         <div data-bet="mines"></div>
         <label class="field"><span>Minen</span><select id="minesCount"></select></label>
         <button class="btn primary block" id="minesBtn" data-primary>Runde starten</button>
+        <button class="btn" id="minesRandom" disabled>Zufälliges Feld aufdecken</button>
         <dl class="facts">
           <div><dt>Multiplikator</dt><dd id="minesMult">1,00×</dd></div>
           <div><dt>Nächstes Feld</dt><dd id="minesNext">–</dd></div>
@@ -682,6 +736,90 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
       <div class="recent" data-recent="crash"></div>
     </section>
 
+    <!-- Limbo -->
+    <section class="page game" id="p-limbo" hidden>
+      <div class="stage">
+        <p class="status" id="limboStatus">Ziel wählen. Du gewinnst, wenn das Ergebnis mindestens so hoch ist.</p>
+        <div class="dice-roll" id="limboOut">1,00×</div>
+      </div>
+      <aside class="panel">
+        <div data-bet="limbo"></div>
+        <label class="field"><span>Ziel-Multiplikator</span><input type="number" id="limboTarget" min="1.01" max="1000" step="0.1" value="2"></label>
+        <button class="btn primary block" id="limboBtn" data-primary>Spielen</button>
+        <dl class="facts">
+          <div><dt>Gewinnchance</dt><dd id="limboChance">49,50 %</dd></div>
+          <div><dt>Gewinn</dt><dd id="limboProfit">+100 $</dd></div>
+        </dl>
+        <p class="note">Je höher das Ziel, desto seltener wird es erreicht. Möglich sind Ziele von 1,01× bis 1.000×. Auszahlungsquote 99 %.</p>
+      </aside>
+      <div class="recent" data-recent="limbo"></div>
+    </section>
+
+    <!-- Keno -->
+    <section class="page game" id="p-keno" hidden>
+      <div class="stage">
+        <p class="status" id="kenoStatus">Wähle bis zu 10 Zahlen. Gezogen werden 10 von 40.</p>
+        <div class="keno-grid" id="kenoGrid"></div>
+        <div class="keno-pay" id="kenoPay"></div>
+      </div>
+      <aside class="panel">
+        <div data-bet="keno"></div>
+        <button class="btn primary block" id="kenoBtn" data-primary>Ziehen</button>
+        <div class="row">
+          <button class="btn" id="kenoRandom">10 zufällige Zahlen</button>
+          <button class="btn" id="kenoClear">Auswahl leeren</button>
+        </div>
+        <dl class="facts">
+          <div><dt>Gewählt</dt><dd id="kenoCount">0 von 10</dd></div>
+        </dl>
+        <p class="note">Je mehr deiner Zahlen gezogen werden, desto höher der Multiplikator. Die Tabelle unter dem Feld zeigt die Auszahlung für deine Auswahl. Auszahlungsquote rund 99 %.</p>
+      </aside>
+      <div class="recent" data-recent="keno"></div>
+    </section>
+
+    <!-- HiLo -->
+    <section class="page game" id="p-hilo" hidden>
+      <div class="stage">
+        <p class="status" id="hiloStatus">Runde starten und tippen, ob die nächste Karte höher oder niedriger ist.</p>
+        <div class="hand hilo" id="hiTrail"></div>
+      </div>
+      <aside class="panel">
+        <div data-bet="hilo"></div>
+        <div class="row">
+          <button class="btn tall" id="hiA" disabled>Höher</button>
+          <button class="btn tall" id="hiB" disabled>Niedriger</button>
+        </div>
+        <button class="btn primary block" id="hiBtn" data-primary>Runde starten</button>
+        <dl class="facts">
+          <div><dt>Multiplikator</dt><dd id="hiMult">1,00×</dd></div>
+          <div><dt>Richtige Tipps</dt><dd id="hiSteps">0</dd></div>
+        </dl>
+        <p class="note">Jeder richtige Tipp erhöht den Multiplikator – je unwahrscheinlicher der Tipp, desto stärker. Ein falscher Tipp beendet die Runde. Auszahlungsquote 99 %.</p>
+      </aside>
+      <div class="recent" data-recent="hilo"></div>
+    </section>
+
+    <!-- Glücksrad -->
+    <section class="page game" id="p-wheel" hidden>
+      <div class="stage">
+        <p class="status" id="wheelStatus">Risiko wählen und drehen.</p>
+        <div class="fwheel"><canvas id="wheelCanvas" width="600" height="600"></canvas><i></i></div>
+      </div>
+      <aside class="panel">
+        <div data-bet="wheel"></div>
+        <div class="field"><span>Risiko</span>
+          <div class="seg" id="wheelRisk"><button data-v="low" aria-pressed="false">Niedrig</button><button data-v="medium" aria-pressed="true">Mittel</button><button data-v="high" aria-pressed="false">Hoch</button></div>
+        </div>
+        <button class="btn primary block" id="wheelBtn" data-primary>Drehen</button>
+        <dl class="facts">
+          <div><dt>Höchster Multiplikator</dt><dd id="wheelMax">–</dd></div>
+          <div><dt>Felder mit Gewinn</dt><dd id="wheelHit">–</dd></div>
+        </dl>
+        <p class="note">Zehn gleich große Felder. Das Feld unter dem Zeiger bestimmt den Multiplikator. Auszahlungsquote 99 %.</p>
+      </aside>
+      <div class="recent" data-recent="wheel"></div>
+    </section>
+
     <!-- Rangliste -->
     <section class="page" id="p-rang" hidden>
       <div class="toolbar">
@@ -818,6 +956,10 @@ const GAMES = [
   { id: 'blackjack', name: 'Blackjack', desc: 'Näher an 21 als der Dealer.', fact: 'Blackjack zahlt 3:2', tint: '#f4eadc' },
   { id: 'roulette', name: 'Roulette', desc: 'Europäischer Tisch mit einer Null.', fact: 'Zahl zahlt 35:1', tint: '#ee4b45' },
   { id: 'crash', name: 'Crash', desc: 'Auszahlen, bevor die Kurve abstürzt.', fact: 'Nach oben offen', tint: '#6fc3ff' },
+  { id: 'limbo', name: 'Limbo', desc: 'Ziel wählen, ein Klick entscheidet.', fact: 'Bis 1.000×', tint: '#ff9ecb' },
+  { id: 'keno', name: 'Keno', desc: 'Zahlen tippen, zehn werden gezogen.', fact: '1 bis 10 Zahlen', tint: '#8fd3c8' },
+  { id: 'hilo', name: 'HiLo', desc: 'Nächste Karte: höher oder niedriger?', fact: 'Serie aufbauen', tint: '#f4eadc' },
+  { id: 'wheel', name: 'Glücksrad', desc: 'Drehen und auf ein gutes Feld hoffen.', fact: 'Bis 9,90×', tint: '#c9a0ff' },
 ];
 const TITLES = { lobby: 'Lobby', rang: 'Rangliste', profil: 'Profil' };
 GAMES.forEach(g => TITLES[g.id] = g.name);
@@ -947,8 +1089,12 @@ function settle(g, bet, payout, o = {}) {
   if (win) { s.wins++; gs.w++; s.biggestWin = Math.max(s.biggestWin, profit); s.bestMult = Math.max(s.bestMult, mult); }
   a.history.unshift({ g, b: bet, p: payout, l: o.label || fx(mult), t: Date.now() });
   a.history.length = Math.min(a.history.length, 60);
-  a.balHist.push(a.balance); if (a.balHist.length > 120) a.balHist.shift();
+  const lvBefore = levelOf(a.xp).level;
   a.xp += 5 + Math.min(40, Math.floor(bet / 25)) + (win ? 8 : 0);
+  const lvNow = levelOf(a.xp).level;
+  if (lvNow > lvBefore) { a.balance += 100 * lvNow; setTimeout(() => toast(`Level ${lvNow} erreicht: <b>+${num(100 * lvNow)} $</b>`, 'win', 3400), 500); }
+  questProgress(a, g, bet, win, mult);
+  a.balHist.push(a.balance); if (a.balHist.length > 120) a.balHist.shift();
 
   unlock(a, 'first_round');
   if (win) unlock(a, 'first_cashout');
@@ -1025,6 +1171,7 @@ hooks.lobby = () => {
   $('#bonusText').textContent = got ? 'Heute schon abgeholt. Morgen gibt es wieder 250 $.' : 'Einmal am Tag gibt es 250 $ geschenkt.';
   $('#bonusBtn').disabled = got;
   $('#refillBtn').hidden = a.balance >= 10;
+  renderQuests();
   $('#feed').innerHTML = a.history.slice(0, 8).map(r => {
     const d = r.p - r.b;
     return `<li><span>${TITLES[r.g] || r.g} · ${esc(r.l)}</span><span class="${d > 0 ? 'w' : d < 0 ? 'l' : ''}">${signed(d)}</span></li>`;
@@ -1055,7 +1202,7 @@ function minesUI() {
   $('#minesMult').textContent = fx(minesMult(k, m));
   $('#minesNext').textContent = left > 0 ? fx(minesMult(k + 1, m)) : '–';
   $('#minesChance').textContent = left > 0 ? (left / (25 - k) * 100).toFixed(1).replace('.', ',') + ' %' : '–';
-  $('#minesCount').disabled = M.on;
+  $('#minesCount').disabled = M.on; $('#minesRandom').disabled = !M.on;
   btn.classList.toggle('cash', M.on); btn.classList.toggle('primary', !M.on);
   btn.textContent = M.on ? (k ? `${money(M.bet * minesMult(k, m))} auszahlen` : 'Feld aufdecken …') : 'Runde starten';
   btn.disabled = M.on && !k;
@@ -1102,6 +1249,7 @@ function initMines() {
   $('#minesCount').innerHTML = Array.from({ length: 24 }, (_, i) => `<option${i === 4 ? ' selected' : ''}>${i + 1}</option>`).join('');
   $('#minesCount').onchange = e => { M.mines = +e.target.value; minesUI(); };
   $('#minesBtn').onclick = () => M.on ? minesCash() : minesStart();
+  $('#minesRandom').onclick = () => { const free = $$('#minesGrid .tile.live'); if (free.length) minesPick(+free[rint(free.length)].dataset.i); };
   $('#minesGrid').onclick = e => { const b = e.target.closest('.tile'); if (b) minesPick(+b.dataset.i); };
   minesGrid(); minesUI();
 }
@@ -1497,6 +1645,199 @@ function initCrash() {
   crashUI();
 }
 
+/* ---------- Limbo ---------- */
+const L = { busy: false };
+const limboTarget = () => clamp(Math.round((parseFloat(String($('#limboTarget').value).replace(',', '.')) || 2) * 100) / 100, 1.01, 1000);
+function limboUI() {
+  const t = limboTarget(), bet = parseInt(betInput('limbo').value, 10) || 0;
+  $('#limboChance').textContent = (99 / t).toFixed(2).replace('.', ',') + ' %';
+  $('#limboProfit').textContent = signed(Math.floor(bet * t) - bet);
+}
+async function limboPlay() {
+  if (L.busy) return;
+  const t = limboTarget(); $('#limboTarget').value = t;
+  const bet = getBet('limbo'); if (!takeBet(bet)) return;
+  L.busy = true; $('#limboBtn').disabled = true;
+  const res = Math.min(1e6, Math.max(1, Math.floor(0.99 / (1 - rnd()) * 100) / 100)), win = res >= t, out = $('#limboOut');
+  out.className = 'dice-roll'; sfx.tick();
+  for (let i = 1; i <= 8; i++) { out.textContent = fx(1 + (res - 1) * (i / 8) ** 2); await sleep(30); }
+  out.textContent = fx(res); out.classList.add(win ? 'win' : 'lose');
+  const r = settle('limbo', bet, win ? bet * t : 0, { label: fx(res), quiet: t < 10 });
+  setStatus('limboStatus', win ? `${fx(res)} erreicht das Ziel ${fx(t)}: ${signed(r.profit)}.` : `${fx(res)} liegt unter dem Ziel ${fx(t)}: ${signed(r.profit)}.`, win ? 'win' : 'lose');
+  await sleep(150); L.busy = false; $('#limboBtn').disabled = false;
+}
+function initLimbo() {
+  $('#limboBtn').onclick = limboPlay;
+  $('#limboTarget').onchange = () => { $('#limboTarget').value = limboTarget(); limboUI(); };
+  $('#limboTarget').oninput = limboUI; betInput('limbo').addEventListener('input', limboUI);
+  hooks.limbo = limboUI; limboUI();
+}
+
+/* ---------- Keno ---------- */
+const KN = 40, KD = 10, K = { picks: new Set(), drawn: new Set(), busy: false };
+const comb = (n, k) => { if (k < 0 || k > n) return 0; let r = 1; for (let i = 1; i <= k; i++) r = r * (n - k + i) / i; return r; };
+function kenoTable(n) {
+  if (!n) return [];
+  const h = k => comb(n, k) * comb(KN - n, KD - k) / comb(KN, KD), min = Math.max(1, Math.round(n * 0.4));
+  const raw = k => k < min ? 0 : 3.5 ** (k - min);
+  let e = 0; for (let k = 0; k <= n; k++) e += h(k) * raw(k);
+  return Array.from({ length: n + 1 }, (_, k) => { const m = raw(k) * 0.99 / e; return m >= 100 ? Math.round(m) : m >= 10 ? Math.round(m * 10) / 10 : Math.round(m * 100) / 100; });
+}
+function kenoUI() {
+  const tab = kenoTable(K.picks.size), hits = [...K.picks].filter(n => K.drawn.has(n)).length;
+  $('#kenoGrid').innerHTML = Array.from({ length: KN }, (_, i) => {
+    const n = i + 1, p = K.picks.has(n), d = K.drawn.has(n);
+    return `<button class="kn${p && d ? ' hit' : p ? ' pick' : d ? ' drawn' : ''}" data-n="${n}" aria-pressed="${p}">${n}</button>`;
+  }).join('');
+  $('#kenoPay').innerHTML = tab.map((m, k) => m ? `<span class="chipr${K.drawn.size === KD && k === hits ? ' w' : ''}">${k} Treffer · ${fx(m)}</span>` : '').join('') || '<span class="note">Wähle 1 bis 10 Zahlen.</span>';
+  $('#kenoCount').textContent = `${K.picks.size} von 10`;
+  $('#kenoBtn').disabled = K.busy || !K.picks.size;
+}
+async function kenoPlay() {
+  if (K.busy || !K.picks.size) return;
+  const bet = getBet('keno'); if (!takeBet(bet)) return;
+  K.busy = true; K.drawn = new Set(); kenoUI();
+  const pool = Array.from({ length: KN }, (_, i) => i + 1);
+  for (let i = 0; i < KD; i++) {
+    const n = pool.splice(rint(pool.length), 1)[0]; K.drawn.add(n);
+    K.picks.has(n) ? sfx.gem(i) : sfx.tick(); kenoUI(); await sleep(110);
+  }
+  const hits = [...K.picks].filter(n => K.drawn.has(n)).length, m = kenoTable(K.picks.size)[hits];
+  const r = settle('keno', bet, bet * m, { label: `${hits}/${K.picks.size}` });
+  setStatus('kenoStatus', `${hits} von ${K.picks.size} getroffen: ${r.profit ? signed(r.profit) : 'Einsatz zurück'}.`, r.profit > 0 ? 'win' : r.profit < 0 ? 'lose' : '');
+  K.busy = false; kenoUI();
+}
+function initKeno() {
+  $('#kenoGrid').onclick = e => {
+    const b = e.target.closest('.kn'); if (!b || K.busy) return;
+    const n = +b.dataset.n; K.drawn = new Set();
+    if (K.picks.has(n)) K.picks.delete(n); else if (K.picks.size < 10) K.picks.add(n); else return toast('Höchstens 10 Zahlen.');
+    sfx.click(); kenoUI();
+  };
+  $('#kenoRandom').onclick = () => { if (K.busy) return; K.picks = new Set(); K.drawn = new Set(); while (K.picks.size < 10) K.picks.add(rint(KN) + 1); sfx.click(); kenoUI(); };
+  $('#kenoClear').onclick = () => { if (K.busy) return; K.picks = new Set(); K.drawn = new Set(); kenoUI(); };
+  $('#kenoBtn').onclick = kenoPlay; kenoUI();
+}
+
+/* ---------- HiLo ---------- */
+const RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+const H = { on: false, bet: 0, raw: 1, steps: 0, trail: [] };
+const hiCard = () => ({ r: RANKS[rint(13)], s: '♠♥♦♣'[rint(4)] });
+const hiOpts = v => v === 1 ? [['Höher', 12 / 13, n => n > 1], ['Gleich', 1 / 13, n => n === 1]]
+  : v === 13 ? [['Niedriger', 12 / 13, n => n < 13], ['Gleich', 1 / 13, n => n === 13]]
+  : [['Höher oder gleich', (14 - v) / 13, n => n >= v], ['Niedriger oder gleich', v / 13, n => n <= v]];
+const hiVal = c => RANKS.indexOf(c.r) + 1;
+function hiUI() {
+  const cur = H.trail[H.trail.length - 1], btn = $('#hiBtn');
+  bjSync($('#hiTrail'), H.trail.slice(-7), false);
+  ['#hiA', '#hiB'].forEach((id, i) => {
+    const el = $(id), o = cur && hiOpts(hiVal(cur))[i];
+    el.disabled = !H.on; el.innerHTML = o ? `${o[0]}<small>${Math.round(o[1] * 100)} % · ${fx(0.99 * H.raw / o[1])}</small>` : (i ? 'Niedriger' : 'Höher');
+  });
+  $('#hiMult').textContent = H.steps ? fx(0.99 * H.raw) : '1,00×';
+  $('#hiSteps').textContent = H.steps;
+  btn.classList.toggle('cash', H.on); btn.classList.toggle('primary', !H.on);
+  btn.textContent = H.on ? (H.steps ? `${money(H.bet * 0.99 * H.raw)} auszahlen` : 'Tipp abgeben …') : 'Runde starten';
+  btn.disabled = H.on && !H.steps; betInput('hilo').disabled = H.on;
+}
+function hiStart() {
+  const bet = getBet('hilo'); if (!takeBet(bet)) return;
+  $('#hiTrail').innerHTML = ''; sfx.card();
+  Object.assign(H, { on: true, bet, raw: 1, steps: 0, trail: [hiCard()] });
+  setStatus('hiloStatus', 'Ist die nächste Karte höher oder niedriger? Das Ass ist die niedrigste Karte.'); hiUI();
+}
+function hiGuess(i) {
+  if (!H.on) return;
+  const o = hiOpts(hiVal(H.trail[H.trail.length - 1]))[i], c = hiCard();
+  H.trail.push(c); sfx.card();
+  if (!o[2](hiVal(c))) {
+    H.on = false; settle('hilo', H.bet, 0, { label: `${H.steps} richtig` });
+    setStatus('hiloStatus', `Falsch getippt. ${money(H.bet)} verloren.`, 'lose'); return hiUI();
+  }
+  H.raw /= o[1]; H.steps++;
+  setStatus('hiloStatus', `Richtig. ${H.steps} in Folge – weiter tippen oder auszahlen.`); hiUI();
+}
+function hiCash() {
+  if (!H.on || !H.steps) return;
+  H.on = false; const r = settle('hilo', H.bet, H.bet * 0.99 * H.raw);
+  setStatus('hiloStatus', `Ausgezahlt nach ${H.steps} richtigen Tipps: ${signed(r.profit)}.`, 'win'); hiUI();
+}
+function initHilo() { $('#hiBtn').onclick = () => H.on ? hiCash() : hiStart(); $('#hiA').onclick = () => hiGuess(0); $('#hiB').onclick = () => hiGuess(1); hiUI(); }
+
+/* ---------- Glücksrad ---------- */
+const WSEG = {
+  low: [1.5, 1.2, 1.2, 1.2, 0, 1.5, 1.2, 1.2, 0.9, 0],
+  medium: [0, 1.9, 0, 1.5, 0, 2, 0, 1.5, 0, 3],
+  high: [0, 0, 0, 0, 0, 0, 0, 0, 0, 9.9],
+};
+const W = { risk: 'medium', rot: 0, busy: false };
+const wColor = m => m === 0 ? '#241a22' : m < 1.3 ? '#2f7d63' : m < 1.8 ? '#3b6fb0' : m < 2.5 ? '#8a55c4' : m < 5 ? '#dba642' : '#ee4b45';
+function wheelDraw() {
+  const c = $('#wheelCanvas').getContext('2d'), seg = WSEG[W.risk], per = Math.PI * 2 / seg.length;
+  c.setTransform(1, 0, 0, 1, 300, 300); c.clearRect(-300, -300, 600, 600);
+  c.beginPath(); c.arc(0, 0, 298, 0, 7); c.fillStyle = '#3a2412'; c.fill();
+  seg.forEach((m, i) => {
+    const a0 = -Math.PI / 2 + (i - 0.5) * per;
+    c.beginPath(); c.moveTo(0, 0); c.arc(0, 0, 282, a0, a0 + per); c.closePath(); c.fillStyle = wColor(m); c.fill();
+    c.strokeStyle = 'rgba(244,234,220,.25)'; c.lineWidth = 2; c.stroke();
+    c.save(); c.rotate(i * per); c.fillStyle = m ? '#fff' : 'rgba(244,234,220,.45)'; c.font = '700 30px system-ui,sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.fillText(m.toLocaleString('de-DE') + '×', 0, -215); c.restore();
+  });
+  c.beginPath(); c.arc(0, 0, 70, 0, 7); c.fillStyle = '#1b0f08'; c.fill(); c.strokeStyle = '#dba642'; c.lineWidth = 5; c.stroke();
+  $('#wheelMax').textContent = fx(Math.max(...seg));
+  $('#wheelHit').textContent = Math.round(seg.filter(Boolean).length / seg.length * 100) + ' %';
+}
+let wheelLock = () => {};
+async function wheelSpin() {
+  if (W.busy) return;
+  const bet = getBet('wheel'); if (!takeBet(bet)) return;
+  W.busy = true; wheelLock(true); $('#wheelBtn').disabled = true; setStatus('wheelStatus', 'Das Rad dreht sich …');
+  const seg = WSEG[W.risk], idx = rint(seg.length), per = 360 / seg.length, base = W.rot + 1440;
+  const target = -idx * per + (rnd() - 0.5) * per * 0.7;
+  W.rot = base + ((((target - base) % 360) + 360) % 360);
+  $('#wheelCanvas').style.transform = `rotate(${W.rot}deg)`;
+  const ticks = setInterval(sfx.tick, 160); setTimeout(() => clearInterval(ticks), 3200);
+  await sleep(matchMedia('(prefers-reduced-motion:reduce)').matches ? 300 : 4300);
+  const m = seg[idx], r = settle('wheel', bet, bet * m, { label: fx(m) });
+  setStatus('wheelStatus', `${fx(m)}: ${r.profit ? signed(r.profit) : 'Einsatz zurück'}.`, r.profit > 0 ? 'win' : r.profit < 0 ? 'lose' : '');
+  W.busy = false; wheelLock(false); $('#wheelBtn').disabled = false;
+}
+function initWheel() {
+  wheelLock = seg('wheelRisk', v => { W.risk = v; wheelDraw(); }).lock;
+  $('#wheelBtn').onclick = wheelSpin; wheelDraw();
+}
+
+/* ---------- Tagesaufgaben ---------- */
+const QUESTS = [
+  () => ({ t: 'rounds', goal: 15, reward: 150, text: 'Spiele 15 Runden' }),
+  () => ({ t: 'wins', goal: 8, reward: 200, text: 'Gewinne 8 Runden' }),
+  () => ({ t: 'wager', goal: 1500, reward: 180, text: 'Setze insgesamt 1.500 $' }),
+  () => ({ t: 'mult', goal: 1, reward: 200, text: 'Gewinne einmal mit 3× oder mehr' }),
+  () => { const g = GAMES[rint(GAMES.length)]; return { t: 'game', g: g.id, goal: 5, reward: 120, text: `Spiele 5 Runden ${g.name}` }; },
+  () => { const g = GAMES[rint(GAMES.length)]; return { t: 'gamewin', g: g.id, goal: 2, reward: 160, text: `Gewinne 2 Runden ${g.name}` }; },
+];
+function quests(a) {
+  if (!a.quests || a.quests.day !== today() || !Array.isArray(a.quests.list)) {
+    const pool = QUESTS.slice(), list = [];
+    while (list.length < 3) list.push({ ...pool.splice(rint(pool.length), 1)[0](), prog: 0, done: false });
+    a.quests = { day: today(), list };
+  }
+  return a.quests.list;
+}
+function questProgress(a, g, bet, win, mult) {
+  for (const q of quests(a)) {
+    if (q.done) continue;
+    q.prog += q.t === 'rounds' ? 1 : q.t === 'wins' ? +win : q.t === 'wager' ? bet : q.t === 'mult' ? +(win && mult >= 3) : q.t === 'game' ? +(g === q.g) : +(g === q.g && win);
+    if (q.prog >= q.goal) {
+      q.prog = q.goal; q.done = true; a.balance += q.reward;
+      setTimeout(() => toast(`Tagesaufgabe erledigt: <b>+${num(q.reward)} $</b>`, 'win', 3400), 900);
+    }
+  }
+}
+function renderQuests() {
+  $('#quests').innerHTML = quests(active()).map(q => `<li class="${q.done ? 'done' : ''}"><div><span>${esc(q.text)}</span><b>${q.done ? 'Erledigt' : '+' + num(q.reward) + ' $'}</b></div><div class="meter"><i style="width:${(q.prog / q.goal * 100).toFixed(0)}%"></i></div></li>`).join('');
+}
+
 /* ---------- Rangliste ---------- */
 let rangSort = 'balance';
 hooks.rang = () => {
@@ -1527,7 +1868,7 @@ hooks.profil = () => {
   $('#achCount').textContent = `${ACH.filter(x => a.ach[x[0]]).length} von ${ACH.length}`;
   $('#achs').innerHTML = ACH.map(([k, n, d]) => `<div class="ach${a.ach[k] ? ' got' : ''}"><b>${n}</b><span>${d}</span></div>`).join('');
 };
-const roundRunning = () => M.on || T.on || C.on || B.phase !== 'idle' || R.busy || D.busy || P.balls.length > 0;
+const roundRunning = () => M.on || T.on || C.on || B.phase !== 'idle' || R.busy || D.busy || P.balls.length > 0 || L.busy || K.busy || H.on || W.busy;
 function setActive(id) {
   if (id === activeId) return;
   if (roundRunning()) return toast('Beende zuerst die laufende Runde.');
@@ -1637,7 +1978,7 @@ function init() {
     };
     betInput(g).addEventListener('input', e => e.target.value = e.target.value.replace(/\D/g, '').slice(0, 9));
   });
-  initLobby(); initMines(); initDice(); initPlinko(); initTower(); initBlackjack(); initRoulette(); initCrash(); initProfil(); initSettings();
+  initLobby(); initMines(); initDice(); initPlinko(); initTower(); initBlackjack(); initRoulette(); initCrash(); initLimbo(); initKeno(); initHilo(); initWheel(); initProfil(); initSettings();
   seg('rangSort', v => { rangSort = v; hooks.rang(); });
 
   document.addEventListener('click', e => {
