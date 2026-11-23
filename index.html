@@ -482,6 +482,94 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
   .keno-grid{gap:5px} .kn{font-size:13px;border-radius:8px}
   .hilo .card:last-child{width:88px;height:128px}
 }
+
+/* ---------- Casino-Lobby, Kasse, VIP, Fairness, Slot ---------- */
+button.balance{cursor:pointer;color:var(--ink)}
+button.balance:hover{border-color:var(--brass)}
+.cashier{padding:10px 16px;border-radius:99px;border:0;background:var(--brass);color:var(--brass-ink);font-weight:700}
+.cashier:hover{background:#e9b757}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;word-break:break-all}
+
+.promos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:26px}
+.promo{border-radius:var(--r-l);padding:22px;display:flex;flex-direction:column;gap:10px;min-height:190px;border:1px solid var(--line)}
+.promo h2{font:500 26px/1.1 var(--display);letter-spacing:-.01em}
+.promo p{color:rgba(244,234,220,.8);font-size:14px}
+.promo .row{margin-top:auto}
+.promo .row .btn{flex:0 1 auto}
+.promo .meter{width:100%;background:rgba(0,0,0,.35)}
+.promo.pa{background:linear-gradient(135deg,#6b1626,#2c0d17 70%);border-color:#7c2434}
+.promo.pb{background:linear-gradient(135deg,#5a4212,#241a0b 70%);border-color:#6d5220}
+.promo.pc{background:var(--surface)}
+.promo.pb .btn{background:rgba(0,0,0,.35);border-color:rgba(219,166,66,.45)}
+
+.finder{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.finder input{flex:1 1 220px;width:auto;padding:11px 14px;border-radius:var(--r-s);border:1px solid var(--line);background:var(--surface)}
+.finder .seg{flex:2 1 420px;overflow-x:auto}
+
+.games{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+.gtile{position:relative}
+.gplay{
+  position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;width:100%;aspect-ratio:4/5;
+  padding:14px;text-align:left;overflow:hidden;border:1px solid var(--line);border-radius:var(--r-m);
+  background:radial-gradient(130% 85% at 50% 0%,color-mix(in srgb,var(--tint) 34%,transparent),transparent 66%),var(--surface);
+  transition:transform .15s,border-color .15s;
+}
+.gplay:hover{transform:translateY(-4px);border-color:var(--tint)}
+.gplay svg{
+  position:absolute;left:50%;top:13%;width:44%;aspect-ratio:1;transform:translateX(-50%);
+  fill:none;stroke:var(--tint);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;
+}
+.gplay b{font:500 21px/1.15 var(--display)}
+.gplay small{color:var(--muted);font-size:12.5px;line-height:1.35}
+.fav{
+  position:absolute;top:8px;right:8px;width:32px;height:32px;border-radius:50%;border:0;
+  background:rgba(0,0,0,.35);color:rgba(244,234,220,.4);font-size:15px;line-height:1;
+}
+.fav:hover{color:var(--ink)}
+.fav[aria-pressed="true"]{color:var(--brass)}
+
+.meter.wide{width:100%;height:8px;margin-bottom:22px;max-width:640px}
+.vipclaim{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding:18px 20px;border:1px solid var(--line);border-radius:var(--r-m);margin-bottom:24px;max-width:640px;
+}
+.vipclaim span{display:block;color:var(--muted);font-size:13px}
+.vipclaim strong{font:500 30px/1.1 var(--display)}
+.vipclaim .btn{font-size:15px;padding:11px 16px}
+.vgrid{display:grid;grid-template-columns:2fr 1fr 90px auto;gap:6px}
+
+.slots{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:8px;width:min(100%,560px);
+  padding:14px;border-radius:var(--r-m);background:rgba(0,0,0,.4);box-shadow:inset 0 0 0 2px rgba(219,166,66,.5);
+}
+.sc{
+  aspect-ratio:1;display:grid;place-items:center;border-radius:10px;background:#1b1118;
+  font:600 clamp(26px,6vw,46px)/1 var(--display);transition:opacity .2s,transform .2s;
+}
+.sc.blur{filter:blur(2px);opacity:.75}
+.sc.dim{opacity:.3}
+.sc.win{background:#2a1c10;box-shadow:inset 0 0 0 2px var(--brass);transform:scale(1.04)}
+.pays summary{cursor:pointer;font-weight:600;padding:8px 0}
+.pays table{min-width:0;font-size:13.5px}
+.pays th,.pays td{padding:6px 8px}
+.pays th:first-child,.pays td:first-child{width:auto;text-align:left}
+.pays th:nth-child(2),.pays td:nth-child(2){text-align:right}
+.btn.auto{flex:0 0 auto}
+
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;display:flex;gap:8px 20px;flex-wrap:wrap}
+.foot p{flex:1 1 320px;max-width:70ch}
+.foot button{background:none;border:0;color:var(--ink);padding:0;text-decoration:underline;text-underline-offset:3px}
+
+@media (max-width:1080px){.promos{grid-template-columns:1fr 1fr}.promo.pc{grid-column:1/-1;min-height:0}}
+@media (max-width:820px){
+  .promos{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px 20px;padding:0 16px;scrollbar-width:none}
+  .promo,.promo.pc{flex:0 0 84%;scroll-snap-align:center;min-height:200px}
+  .games{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .cashier{display:none}
+  .tabbar{grid-template-columns:repeat(5,1fr)}
+  .vgrid{grid-template-columns:1fr 1fr}
+  .slots{gap:5px;padding:8px}
+}
 </style>
 </head>
 <body>
@@ -499,6 +587,10 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
     <symbol id="i-keno" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><circle cx="8.5" cy="8.5" r="1.6"/><circle cx="15.5" cy="8.5" r="1.6"/><circle cx="8.5" cy="15.5" r="1.6"/><path d="M13.5 15.5l1.5 1.5 3-3.5"/></symbol>
     <symbol id="i-hilo" viewBox="0 0 24 24"><path d="M8 20V5M4 9l4-4 4 4M16 4v15M12 15l4 4 4-4"/></symbol>
     <symbol id="i-wheel" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="8"/><path d="M12 13.5v-8M12 13.5l6.9 4M12 13.5l-6.9 4M10.3 2h3.4L12 5.5z"/></symbol>
+    <symbol id="i-slots" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M9 5v14M15 5v14M5.5 12h1M11.5 12h1M17.5 12h1"/></symbol>
+    <symbol id="i-vip" viewBox="0 0 24 24"><path d="M4 17.5L2.5 8l5 4L12 5l4.5 7 5-4L20 17.5z"/><path d="M4 21h16"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/></symbol>
+    <symbol id="i-fair" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.3 7.8-8 9-4.700-1.200-8-4.500-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
     <symbol id="i-rang" viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4c0 3 1.500 4.500 3.500 5M17 6h3c0 3-1.500 4.500-3.500 5M12 14v4M8.500 20h7"/></symbol>
     <symbol id="i-profil" viewBox="0 0 24 24"><circle cx="12" cy="8.500" r="4"/><path d="M4.500 20.500c1-4 4-5.500 7.500-5.500s6.500 1.500 7.500 5.500"/></symbol>
     <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.500v3M12 18.500v3M2.500 12h3M18.500 12h3M5.300 5.300l2.100 2.100M16.600 16.600l2.100 2.100M18.700 5.300l-2.100 2.100M7.400 16.600l-2.100 2.100"/></symbol>
@@ -523,9 +615,13 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
     <button class="nav" data-go="keno"><svg class="ico"><use href="#i-keno"/></svg>Keno</button>
     <button class="nav" data-go="hilo"><svg class="ico"><use href="#i-hilo"/></svg>HiLo</button>
     <button class="nav" data-go="wheel"><svg class="ico"><use href="#i-wheel"/></svg>Glücksrad</button>
+    <button class="nav" data-go="slots"><svg class="ico"><use href="#i-slots"/></svg>Nachtschicht</button>
     <h2>Konto</h2>
+    <button class="nav" data-open="wallet"><svg class="ico"><use href="#i-wallet"/></svg>Kasse</button>
+    <button class="nav" data-go="vip"><svg class="ico"><use href="#i-vip"/></svg>VIP-Club</button>
     <button class="nav" data-go="rang"><svg class="ico"><use href="#i-rang"/></svg>Rangliste</button>
     <button class="nav" data-go="profil"><svg class="ico"><use href="#i-profil"/></svg>Profil</button>
+    <button class="nav" data-open="fair"><svg class="ico"><use href="#i-fair"/></svg>Fairness</button>
     <button class="nav" data-open="settings"><svg class="ico"><use href="#i-gear"/></svg>Einstellungen</button>
     <div class="spacer"></div>
     <small>Nur Spielgeld. Alles wird in diesem Browser gespeichert.</small>
@@ -535,33 +631,49 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
     <header class="top">
       <h1 id="title">Lobby</h1>
       <div class="level" title="Level-Fortschritt"><span id="lvl">Level 1</span><div class="meter"><i id="lvlBar"></i></div></div>
-      <div class="balance" id="balance" aria-live="polite">0 $</div>
+      <button class="balance" id="balance" data-open="wallet" title="Kasse öffnen" aria-live="polite">0 $</button>
+      <button class="cashier" data-open="wallet">Kasse</button>
       <button class="who" data-go="profil" title="Profil und Konten"><svg class="ico"><use href="#i-profil"/></svg><span id="who">Gast</span></button>
     </header>
 
     <!-- Lobby -->
     <section class="page" id="p-lobby">
-      <p class="lead" id="greet"></p>
-      <div class="lobby">
-        <div class="games" id="games"></div>
-        <aside class="side">
-          <div>
-            <h2>Tagesbonus</h2>
-            <div class="bonus">
-              <p id="bonusText"></p>
-              <button class="btn" id="bonusBtn">250 $ abholen</button>
-              <button class="btn" id="refillBtn" hidden>500 $ Startgeld holen</button>
-            </div>
-          </div>
-          <div>
-            <h2>Tagesaufgaben</h2>
-            <ul class="quests" id="quests"></ul>
-          </div>
-          <div>
-            <h2>Letzte Runden</h2>
-            <ul class="feed" id="feed"></ul>
-          </div>
-        </aside>
+      <div class="promos">
+        <article class="promo pa">
+          <h2>Tagesbonus</h2>
+          <p id="bonusText"></p>
+          <div class="row"><button class="btn primary" id="bonusBtn">250 $ abholen</button><button class="btn" id="refillBtn" hidden>500 $ Startgeld holen</button></div>
+        </article>
+        <article class="promo pb">
+          <h2>VIP-Club</h2>
+          <p id="vipText"></p>
+          <div class="meter"><i id="vipBar"></i></div>
+          <div class="row"><button class="btn" data-go="vip">Stufen und Rakeback ansehen</button></div>
+        </article>
+        <article class="promo pc">
+          <h2>Tagesaufgaben</h2>
+          <ul class="quests" id="quests"></ul>
+        </article>
+      </div>
+      <div class="finder">
+        <input type="search" id="search" placeholder="Spiel suchen" aria-label="Spiel suchen">
+        <div class="seg" id="catSeg"><button data-v="all" aria-pressed="true">Alle</button><button data-v="orig" aria-pressed="false">Originals</button><button data-v="table" aria-pressed="false">Tisch und Karten</button><button data-v="slots" aria-pressed="false">Slots</button><button data-v="fav" aria-pressed="false">Favoriten</button></div>
+      </div>
+      <div id="recentRow" hidden>
+        <h2 class="sect">Zuletzt gespielt</h2>
+        <div class="games" id="recentGames"></div>
+        <h2 class="sect" style="margin-top:28px">Alle Spiele</h2>
+      </div>
+      <div class="games" id="games"></div>
+      <p class="empty" id="noGames" hidden></p>
+      <div class="sec">
+        <div class="toolbar"><h2 class="sect" style="margin:0 auto 0 0">Runden</h2>
+          <div class="seg" id="feedSeg"><button data-v="all" aria-pressed="true">Alle Konten</button><button data-v="big" aria-pressed="false">Größte Gewinne</button><button data-v="mine" aria-pressed="false">Meine</button></div>
+        </div>
+        <div class="tablewrap"><table>
+          <thead><tr><th></th><th>Spiel</th><th>Konto</th><th>Uhrzeit</th><th>Einsatz</th><th>Multiplikator</th><th>Ergebnis</th></tr></thead>
+          <tbody id="feedBody"></tbody>
+        </table></div>
       </div>
     </section>
 
@@ -608,7 +720,7 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
         <label class="field"><span>Gewinnchance in %</span><input type="number" id="diceChance" min="1" max="95" step="1" value="50"></label>
         <div class="row">
           <button class="btn primary" id="diceBtn" data-primary>Würfeln</button>
-          <button class="btn" id="diceAuto" style="flex:0 0 auto">10× Auto</button>
+          <button class="btn" id="diceAuto" style="flex:0 0 auto">25× Auto</button>
         </div>
         <dl class="facts">
           <div><dt>Ziel</dt><dd id="diceGoal">unter 50</dd></div>
@@ -745,7 +857,7 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
       <aside class="panel">
         <div data-bet="limbo"></div>
         <label class="field"><span>Ziel-Multiplikator</span><input type="number" id="limboTarget" min="1.01" max="1000" step="0.1" value="2"></label>
-        <button class="btn primary block" id="limboBtn" data-primary>Spielen</button>
+        <div class="row"><button class="btn primary" id="limboBtn" data-primary>Spielen</button><button class="btn auto" id="limboAuto">25× Auto</button></div>
         <dl class="facts">
           <div><dt>Gewinnchance</dt><dd id="limboChance">49,50 %</dd></div>
           <div><dt>Gewinn</dt><dd id="limboProfit">+100 $</dd></div>
@@ -764,7 +876,7 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
       </div>
       <aside class="panel">
         <div data-bet="keno"></div>
-        <button class="btn primary block" id="kenoBtn" data-primary>Ziehen</button>
+        <div class="row"><button class="btn primary" id="kenoBtn" data-primary>Ziehen</button><button class="btn auto" id="kenoAuto">25× Auto</button></div>
         <div class="row">
           <button class="btn" id="kenoRandom">10 zufällige Zahlen</button>
           <button class="btn" id="kenoClear">Auswahl leeren</button>
@@ -810,7 +922,7 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
         <div class="field"><span>Risiko</span>
           <div class="seg" id="wheelRisk"><button data-v="low" aria-pressed="false">Niedrig</button><button data-v="medium" aria-pressed="true">Mittel</button><button data-v="high" aria-pressed="false">Hoch</button></div>
         </div>
-        <button class="btn primary block" id="wheelBtn" data-primary>Drehen</button>
+        <div class="row"><button class="btn primary" id="wheelBtn" data-primary>Drehen</button><button class="btn auto" id="wheelAuto">25× Auto</button></div>
         <dl class="facts">
           <div><dt>Höchster Multiplikator</dt><dd id="wheelMax">–</dd></div>
           <div><dt>Felder mit Gewinn</dt><dd id="wheelHit">–</dd></div>
@@ -818,6 +930,41 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
         <p class="note">Zehn gleich große Felder. Das Feld unter dem Zeiger bestimmt den Multiplikator. Auszahlungsquote 99 %.</p>
       </aside>
       <div class="recent" data-recent="wheel"></div>
+    </section>
+    <!-- Slot -->
+    <section class="page game" id="p-slots" hidden>
+      <div class="stage">
+        <p class="status" id="slotStatus">Fünf Walzen, zehn Gewinnlinien. Einsatz wählen und drehen.</p>
+        <div class="slots" id="slotGrid"></div>
+      </div>
+      <aside class="panel">
+        <div data-bet="slots"></div>
+        <div class="row">
+          <button class="btn primary" id="slotBtn" data-primary>Drehen</button>
+          <button class="btn auto" id="slotAuto">25× Auto</button>
+        </div>
+        <details class="pays">
+          <summary>Gewinntabelle</summary>
+          <table><thead><tr><th>Symbol</th><th>3 gleiche</th><th>4 gleiche</th><th>5 gleiche</th></tr></thead><tbody id="slotPays"></tbody></table>
+        </details>
+        <p class="note">Gewertet werden gleiche Symbole von links auf einer der zehn Linien. Die Tabelle zeigt den Multiplikator auf den gesamten Einsatz. Auszahlungsquote rund 97 %.</p>
+      </aside>
+      <div class="recent" data-recent="slots"></div>
+    </section>
+
+    <!-- VIP -->
+    <section class="page" id="p-vip" hidden>
+      <p class="lead" id="vipNow"></p>
+      <div class="meter wide"><i id="vipBar2"></i></div>
+      <div class="vipclaim">
+        <div><span>Angesammeltes Rakeback</span><strong id="vipRake">0 $</strong></div>
+        <button class="btn primary" id="vipClaim">Rakeback abholen</button>
+      </div>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Stufe</th><th>Name</th><th>Ab Umsatz</th><th>Rakeback</th><th>Aufstiegsbonus</th></tr></thead>
+        <tbody id="vipBody"></tbody>
+      </table></div>
+      <p class="note" style="margin-top:14px;max-width:70ch">Die Stufe hängt vom gesamten Umsatz ab, also von der Summe aller Einsätze. Von jedem Einsatz fließt der Rakeback-Anteil deiner Stufe in einen Topf, den du jederzeit abholen kannst.</p>
     </section>
 
     <!-- Rangliste -->
@@ -873,11 +1020,16 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
         </div>
       </div>
     </section>
+    <footer class="foot">
+      <p>Darkbet ist ein Spiel mit Spielgeld. Es gibt keine Einzahlungen, keine Auszahlungen und keine echten Gewinne. Alle Daten bleiben in diesem Browser.</p>
+      <button data-open="fair">Fairness prüfen</button><button data-go="vip">VIP-Club</button><button data-open="settings">Einstellungen</button>
+    </footer>
   </div>
 </div>
 
 <nav class="tabbar" aria-label="Navigation">
   <button data-go="lobby"><svg class="ico"><use href="#i-lobby"/></svg>Spiele</button>
+  <button data-open="wallet"><svg class="ico"><use href="#i-wallet"/></svg>Kasse</button>
   <button data-go="rang"><svg class="ico"><use href="#i-rang"/></svg>Rangliste</button>
   <button data-go="profil"><svg class="ico"><use href="#i-profil"/></svg>Profil</button>
   <button data-open="settings"><svg class="ico"><use href="#i-gear"/></svg>Einstellungen</button>
@@ -912,6 +1064,45 @@ dialog .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:22px}
   <div class="actions"><button class="btn" data-close>Schließen</button></div>
 </dialog>
 
+<dialog id="dlgWallet">
+  <h2>Kasse</h2>
+  <p class="hint">Guthaben: <b id="wBal" style="color:var(--ink)"></b>. Darkbet nutzt nur Spielgeld – Ein- und Auszahlungen mit echtem Geld gibt es nicht.</p>
+  <div class="stack">
+    <button class="btn" id="wBonus">Tagesbonus</button>
+    <button class="btn" id="wRake">Rakeback</button>
+    <button class="btn" id="wRefill" hidden>Neues Startgeld: auf 500 $ auffüllen</button>
+  </div>
+  <h3>An ein anderes Konto senden</h3>
+  <div class="row" id="wSend"><select id="wTo" aria-label="Empfänger" style="flex:2"></select><input type="number" id="wAmt" min="1" placeholder="Betrag" aria-label="Betrag" style="flex:1"><button class="btn" id="wSendBtn" style="flex:0 0 auto">Senden</button></div>
+  <p class="hint" id="wNoSend" hidden>Dafür brauchst du ein zweites Konto. Lege es im Profil an.</p>
+  <h3>Letzte Buchungen</h3>
+  <ul class="feed" id="wTx"></ul>
+  <div class="actions"><button class="btn" data-close>Schließen</button></div>
+</dialog>
+
+<dialog id="dlgFair" class="wide">
+  <h2>Fairness</h2>
+  <p class="hint">Jedes Ergebnis wird aus drei Werten berechnet: einem geheimen Server-Seed, deinem Client-Seed und der Rundennummer. Vom Server-Seed siehst du vorab nur den SHA-256-Hash. Wechselst du die Seeds, wird der alte Server-Seed aufgedeckt – damit kannst du jede vergangene Runde nachrechnen.</p>
+  <label class="field"><span>Aktiver Server-Seed (als SHA-256-Hash)</span><input type="text" id="fairHash" class="mono" readonly></label>
+  <div class="row" style="margin-top:12px;align-items:flex-end">
+    <label class="field" style="flex:2"><span>Client-Seed</span><input type="text" id="fairClient" class="mono" maxlength="32"></label>
+    <button class="btn" id="fairSave" style="flex:0 0 auto">Speichern</button>
+  </div>
+  <p class="hint" style="margin:12px 0 0">Runden mit diesem Seed-Paar: <b id="fairNonce" style="color:var(--ink)">0</b></p>
+  <label class="field" id="fairOldRow" hidden style="margin-top:12px"><span>Zuletzt aufgedeckter Server-Seed</span><input type="text" id="fairOld" class="mono" readonly></label>
+  <div class="row" style="margin-top:14px"><button class="btn" id="fairRotate">Seeds wechseln und alten aufdecken</button></div>
+  <h3>Runde nachrechnen</h3>
+  <div class="vgrid">
+    <input type="text" id="vServer" class="mono" placeholder="Aufgedeckter Server-Seed" aria-label="Server-Seed">
+    <input type="text" id="vClient" class="mono" placeholder="Client-Seed" aria-label="Client-Seed">
+    <input type="number" id="vNonce" min="1" placeholder="Runde" aria-label="Rundennummer">
+    <button class="btn" id="vBtn">Berechnen</button>
+  </div>
+  <dl class="facts" id="vOut" style="margin-top:12px"></dl>
+  <p class="hint" style="margin:12px 0 0">Formel: HMAC-SHA256 mit dem Server-Seed als Schlüssel über „Client-Seed:Runde:0“. Je vier Bytes ergeben eine Zufallszahl zwischen 0 und 1. Die Seeds liegen nur in diesem Browser.</p>
+  <div class="actions"><button class="btn" data-close>Schließen</button></div>
+</dialog>
+
 <dialog id="dlgPin">
   <form method="dialog" id="pinForm">
     <h2 id="pinTitle">PIN</h2>
@@ -940,7 +1131,6 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
-const rnd = () => { const a = new Uint32Array(1); crypto.getRandomValues(a); return a[0] / 4294967296; };
 const rint = n => Math.floor(rnd() * n);
 const num = n => Math.floor(n).toLocaleString('de-DE');
 const money = n => num(n) + ' $';
@@ -960,8 +1150,9 @@ const GAMES = [
   { id: 'keno', name: 'Keno', desc: 'Zahlen tippen, zehn werden gezogen.', fact: '1 bis 10 Zahlen', tint: '#8fd3c8' },
   { id: 'hilo', name: 'HiLo', desc: 'Nächste Karte: höher oder niedriger?', fact: 'Serie aufbauen', tint: '#f4eadc' },
   { id: 'wheel', name: 'Glücksrad', desc: 'Drehen und auf ein gutes Feld hoffen.', fact: 'Bis 9,90×', tint: '#c9a0ff' },
+  { id: 'slots', name: 'Nachtschicht', desc: 'Slot mit fünf Walzen und zehn Linien.', fact: '10 Linien', tint: '#dba642' },
 ];
-const TITLES = { lobby: 'Lobby', rang: 'Rangliste', profil: 'Profil' };
+const TITLES = { lobby: 'Lobby', rang: 'Rangliste', profil: 'Profil', vip: 'VIP-Club' };
 GAMES.forEach(g => TITLES[g.id] = g.name);
 
 /* ---------- Speicher ---------- */
@@ -988,6 +1179,12 @@ function normalize(a) {
   if (!s.games || typeof s.games !== 'object') s.games = {};
   if (!Array.isArray(a.history)) a.history = [];
   if (!Array.isArray(a.balHist)) a.balHist = [a.balance];
+  if (!Array.isArray(a.favs)) a.favs = [];
+  if (!Array.isArray(a.tx)) a.tx = [];
+  a.rake = Number(a.rake) || 0;
+  if (!a.fair || typeof a.fair.server !== 'string' || typeof a.fair.client !== 'string') a.fair = { server: randHex(32), client: randHex(6), nonce: 0 };
+  a.fair.nonce = Math.max(0, Math.floor(Number(a.fair.nonce) || 0));
+  if (!(a.vip >= 0 && a.vip < VIP.length)) a.vip = vipOf(a);
   return a;
 }
 const newAccount = name => normalize({ id: uid(), name, balance: 1000, xp: 0 });
@@ -1075,7 +1272,7 @@ function takeBet(amount) {
   if (isLocked(a)) { openPin('unlock'); return false; }
   if (!(amount >= 1)) { toast('Bitte einen Einsatz von mindestens 1 $ eingeben.'); return false; }
   if (amount > a.balance) { toast(a.balance < 10 ? 'Dein Guthaben ist aufgebraucht. In der Lobby gibt es neues Startgeld.' : `Dafür reicht dein Guthaben nicht. Du hast ${money(a.balance)}.`); return false; }
-  a.balance -= amount; save(); renderTop('down');
+  a.fair.nonce++; a.balance -= amount; save(); renderTop('down');
   return true;
 }
 function settle(g, bet, payout, o = {}) {
@@ -1087,13 +1284,13 @@ function settle(g, bet, payout, o = {}) {
   const gs = s.games[g] || (s.games[g] = { n: 0, w: 0, p: 0 });
   gs.n++; gs.p += profit;
   if (win) { s.wins++; gs.w++; s.biggestWin = Math.max(s.biggestWin, profit); s.bestMult = Math.max(s.bestMult, mult); }
-  a.history.unshift({ g, b: bet, p: payout, l: o.label || fx(mult), t: Date.now() });
+  a.history.unshift({ g, b: bet, p: payout, l: o.label || fx(mult), t: Date.now(), n: a.fair.nonce });
   a.history.length = Math.min(a.history.length, 60);
   const lvBefore = levelOf(a.xp).level;
   a.xp += 5 + Math.min(40, Math.floor(bet / 25)) + (win ? 8 : 0);
   const lvNow = levelOf(a.xp).level;
-  if (lvNow > lvBefore) { a.balance += 100 * lvNow; setTimeout(() => toast(`Level ${lvNow} erreicht: <b>+${num(100 * lvNow)} $</b>`, 'win', 3400), 500); }
-  questProgress(a, g, bet, win, mult);
+  if (lvNow > lvBefore) { credit(a, 100 * lvNow, 'Level ' + lvNow); setTimeout(() => toast(`Level ${lvNow} erreicht: <b>+${num(100 * lvNow)} $</b>`, 'win', 3400), 500); }
+  questProgress(a, g, bet, win, mult); vipProgress(a, bet);
   a.balHist.push(a.balance); if (a.balHist.length > 120) a.balHist.shift();
 
   unlock(a, 'first_round');
@@ -1159,37 +1356,6 @@ function seg(id, fn) {
   return {
     set: v => $$('button', el).forEach(x => x.setAttribute('aria-pressed', x.dataset.v === String(v))),
     lock: on => $$('button', el).forEach(x => x.disabled = on),
-  };
-}
-
-/* ---------- Lobby ---------- */
-hooks.lobby = () => {
-  const a = active(), h = new Date().getHours();
-  const hello = h < 5 ? 'Noch wach' : h < 11 ? 'Guten Morgen' : h < 18 ? 'Hallo' : 'Guten Abend';
-  $('#greet').textContent = `${hello}, ${a.name}. Hier wird um Spielgeld gespielt – such dir einen Tisch aus.`;
-  const got = a.lastBonus === today();
-  $('#bonusText').textContent = got ? 'Heute schon abgeholt. Morgen gibt es wieder 250 $.' : 'Einmal am Tag gibt es 250 $ geschenkt.';
-  $('#bonusBtn').disabled = got;
-  $('#refillBtn').hidden = a.balance >= 10;
-  renderQuests();
-  $('#feed').innerHTML = a.history.slice(0, 8).map(r => {
-    const d = r.p - r.b;
-    return `<li><span>${TITLES[r.g] || r.g} · ${esc(r.l)}</span><span class="${d > 0 ? 'w' : d < 0 ? 'l' : ''}">${signed(d)}</span></li>`;
-  }).join('') || '<li class="empty">Noch keine Runde gespielt. Such dir links ein Spiel aus.</li>';
-};
-function initLobby() {
-  $('#games').innerHTML = GAMES.map(g => `<button class="gcard" data-go="${g.id}" style="--tint:${g.tint}">${icon(g.id)}<h3>${g.name}</h3><p>${g.desc}</p><em>${g.fact}</em></button>`).join('');
-  $('#bonusBtn').onclick = () => {
-    const a = active(); if (isLocked(a)) return openPin('unlock');
-    if (a.lastBonus === today()) return;
-    a.lastBonus = today(); a.balance += 250; a.balHist.push(a.balance); save(); renderTop('up'); sfx.win();
-    toast('Tagesbonus: <b>+250 $</b>', 'win'); hooks.lobby();
-  };
-  $('#refillBtn').onclick = () => {
-    const a = active(); if (isLocked(a)) return openPin('unlock');
-    if (a.balance >= 10) return;
-    a.balance = 500; a.balHist.push(500); save(); renderTop('up'); sfx.win();
-    toast('Neues Startgeld: <b>500 $</b>', 'win'); hooks.lobby();
   };
 }
 
@@ -1664,7 +1830,7 @@ async function limboPlay() {
   out.textContent = fx(res); out.classList.add(win ? 'win' : 'lose');
   const r = settle('limbo', bet, win ? bet * t : 0, { label: fx(res), quiet: t < 10 });
   setStatus('limboStatus', win ? `${fx(res)} erreicht das Ziel ${fx(t)}: ${signed(r.profit)}.` : `${fx(res)} liegt unter dem Ziel ${fx(t)}: ${signed(r.profit)}.`, win ? 'win' : 'lose');
-  await sleep(150); L.busy = false; $('#limboBtn').disabled = false;
+  await sleep(150); L.busy = false; $('#limboBtn').disabled = false; return true;
 }
 function initLimbo() {
   $('#limboBtn').onclick = limboPlay;
@@ -1705,7 +1871,7 @@ async function kenoPlay() {
   const hits = [...K.picks].filter(n => K.drawn.has(n)).length, m = kenoTable(K.picks.size)[hits];
   const r = settle('keno', bet, bet * m, { label: `${hits}/${K.picks.size}` });
   setStatus('kenoStatus', `${hits} von ${K.picks.size} getroffen: ${r.profit ? signed(r.profit) : 'Einsatz zurück'}.`, r.profit > 0 ? 'win' : r.profit < 0 ? 'lose' : '');
-  K.busy = false; kenoUI();
+  K.busy = false; kenoUI(); return true;
 }
 function initKeno() {
   $('#kenoGrid').onclick = e => {
@@ -1800,7 +1966,7 @@ async function wheelSpin() {
   await sleep(matchMedia('(prefers-reduced-motion:reduce)').matches ? 300 : 4300);
   const m = seg[idx], r = settle('wheel', bet, bet * m, { label: fx(m) });
   setStatus('wheelStatus', `${fx(m)}: ${r.profit ? signed(r.profit) : 'Einsatz zurück'}.`, r.profit > 0 ? 'win' : r.profit < 0 ? 'lose' : '');
-  W.busy = false; wheelLock(false); $('#wheelBtn').disabled = false;
+  W.busy = false; wheelLock(false); $('#wheelBtn').disabled = false; return true;
 }
 function initWheel() {
   wheelLock = seg('wheelRisk', v => { W.risk = v; wheelDraw(); }).lock;
@@ -1829,13 +1995,219 @@ function questProgress(a, g, bet, win, mult) {
     if (q.done) continue;
     q.prog += q.t === 'rounds' ? 1 : q.t === 'wins' ? +win : q.t === 'wager' ? bet : q.t === 'mult' ? +(win && mult >= 3) : q.t === 'game' ? +(g === q.g) : +(g === q.g && win);
     if (q.prog >= q.goal) {
-      q.prog = q.goal; q.done = true; a.balance += q.reward;
+      q.prog = q.goal; q.done = true; credit(a, q.reward, 'Tagesaufgabe');
       setTimeout(() => toast(`Tagesaufgabe erledigt: <b>+${num(q.reward)} $</b>`, 'win', 3400), 900);
     }
   }
 }
 function renderQuests() {
   $('#quests').innerHTML = quests(active()).map(q => `<li class="${q.done ? 'done' : ''}"><div><span>${esc(q.text)}</span><b>${q.done ? 'Erledigt' : '+' + num(q.reward) + ' $'}</b></div><div class="meter"><i style="width:${(q.prog / q.goal * 100).toFixed(0)}%"></i></div></li>`).join('');
+}
+/* ---------- Nachprüfbare Fairness ---------- */
+function sha256(bytes) {
+  if (!sha256.K) { sha256.K = []; for (let n = 2; sha256.K.length < 64; n++) { let p = true; for (let i = 2; i * i <= n; i++) if (n % i === 0) { p = false; break; } if (p) sha256.K.push(Math.floor((Math.cbrt(n) % 1) * 4294967296) | 0); } }
+  const K = sha256.K, H = [0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19].map(x => x | 0);
+  const l = bytes.length, n = ((l + 72) >> 6) << 6, m = new Uint8Array(n), dv = new DataView(m.buffer), w = new Int32Array(64);
+  m.set(bytes); m[l] = 0x80; dv.setUint32(n - 4, l * 8);
+  for (let o = 0; o < n; o += 64) {
+    for (let i = 0; i < 16; i++) w[i] = dv.getInt32(o + i * 4);
+    for (let i = 16; i < 64; i++) { const a = w[i - 15], b = w[i - 2]; w[i] = (w[i - 16] + ((a >>> 7 | a << 25) ^ (a >>> 18 | a << 14) ^ (a >>> 3)) + w[i - 7] + ((b >>> 17 | b << 15) ^ (b >>> 19 | b << 13) ^ (b >>> 10))) | 0; }
+    let [a, b, c, d, e, f, g, h] = H;
+    for (let i = 0; i < 64; i++) {
+      const t1 = (h + ((e >>> 6 | e << 26) ^ (e >>> 11 | e << 21) ^ (e >>> 25 | e << 7)) + ((e & f) ^ (~e & g)) + K[i] + w[i]) | 0;
+      const t2 = (((a >>> 2 | a << 30) ^ (a >>> 13 | a << 19) ^ (a >>> 22 | a << 10)) + ((a & b) ^ (a & c) ^ (b & c))) | 0;
+      h = g; g = f; f = e; e = (d + t1) | 0; d = c; c = b; b = a; a = (t1 + t2) | 0;
+    }
+    [a, b, c, d, e, f, g, h].forEach((x, i) => H[i] = (H[i] + x) | 0);
+  }
+  const out = new Uint8Array(32), ov = new DataView(out.buffer); H.forEach((x, i) => ov.setInt32(i * 4, x)); return out;
+}
+const utf8 = s => new TextEncoder().encode(s);
+const hex = b => [...b].map(x => x.toString(16).padStart(2, '0')).join('');
+function hmac(key, msg) {
+  let k = utf8(key); if (k.length > 64) k = sha256(k);
+  const ip = new Uint8Array(64).fill(0x36), op = new Uint8Array(64).fill(0x5c);
+  k.forEach((x, i) => { ip[i] ^= x; op[i] ^= x; });
+  const m = utf8(msg), a = new Uint8Array(64 + m.length); a.set(ip); a.set(m, 64);
+  const b = new Uint8Array(96); b.set(op); b.set(sha256(a), 64); return sha256(b);
+}
+function fairFloats(server, client, nonce, cursor) {
+  const dv = new DataView(hmac(server, `${client}:${nonce}:${cursor}`).buffer);
+  return Array.from({ length: 8 }, (_, i) => dv.getUint32(i * 4) / 4294967296);
+}
+const randHex = n => { const a = new Uint8Array(n); crypto.getRandomValues(a); return hex(a); };
+let fKey = '', fBuf = [], fCur = 0;
+function rnd() {
+  if (!accounts.length) return Math.random();
+  const f = active().fair, key = f.server + '|' + f.client + '|' + f.nonce;
+  if (key !== fKey) { fKey = key; fBuf = []; fCur = 0; }
+  if (!fBuf.length) fBuf = fairFloats(f.server, f.client, f.nonce, fCur++);
+  return fBuf.shift();
+}
+function renderFair() {
+  const f = active().fair;
+  $('#fairHash').value = hex(sha256(utf8(f.server))); $('#fairClient').value = f.client; $('#fairNonce').textContent = num(f.nonce);
+  $('#fairOld').value = f.last || ''; $('#fairOldRow').hidden = !f.last;
+}
+function initFair() {
+  $('#fairSave').onclick = () => { const v = $('#fairClient').value.trim().slice(0, 32); if (!v) return toast('Der Client-Seed darf nicht leer sein.'); if (roundRunning()) return toast('Beende zuerst die laufende Runde.'); const f = active().fair; f.client = v; f.nonce = 0; save(); renderFair(); toast('Client-Seed gespeichert. Die Rundenzählung beginnt neu.'); };
+  $('#fairRotate').onclick = () => { if (roundRunning()) return toast('Beende zuerst die laufende Runde.'); const f = active().fair; f.last = f.server; f.server = randHex(32); f.nonce = 0; save(); renderFair(); $('#vServer').value = f.last; $('#vClient').value = f.client; toast('Neuer Server-Seed aktiv. Der alte ist jetzt aufgedeckt.'); };
+  $('#vBtn').onclick = () => {
+    const s = $('#vServer').value.trim(), c = $('#vClient').value.trim(), n = parseInt($('#vNonce').value, 10);
+    if (!s || !c || !(n >= 1)) return toast('Bitte Server-Seed, Client-Seed und Rundennummer eingeben.');
+    const fl = fairFloats(s, c, n, 0), x = fl[0];
+    $('#vOut').innerHTML = `<div><dt>SHA-256 des Server-Seeds</dt><dd class="mono">${hex(sha256(utf8(s)))}</dd></div><div><dt>Erste Zufallszahl</dt><dd>${x.toFixed(8)}</dd></div><div><dt>Dice</dt><dd>${(Math.floor(x * 10000) / 100).toFixed(2)}</dd></div><div><dt>Limbo und Crash</dt><dd>${fx(Math.max(1, Math.floor(0.99 / (1 - x) * 100) / 100))}</dd></div><div><dt>Roulette</dt><dd>${ORDER[Math.floor(x * 37)]}</dd></div><div><dt>Glücksrad, Feld</dt><dd>${Math.floor(x * 10) + 1} von 10</dd></div>`;
+  };
+}
+
+/* ---------- Gutschriften, VIP-Club, Kasse ---------- */
+function credit(a, amount, label) {
+  amount = Math.floor(amount); if (!amount) return;
+  a.balance = Math.max(0, a.balance + amount);
+  a.tx.unshift({ t: Date.now(), l: label, a: amount }); a.tx.length = Math.min(a.tx.length, 40);
+  a.balHist.push(a.balance); if (a.balHist.length > 120) a.balHist.shift();
+}
+const VIP = [['Bronze', 0, 0.005, 0], ['Silber', 5000, 0.01, 500], ['Gold', 25000, 0.015, 2000], ['Platin', 100000, 0.02, 7500], ['Diamant', 500000, 0.03, 25000]];
+const vipOf = a => VIP.reduce((best, v, i) => a.stats.wagered >= v[1] ? i : best, 0);
+function vipProgress(a, bet) {
+  a.rake += bet * VIP[a.vip][2];
+  const now = vipOf(a);
+  if (now > a.vip) { a.vip = now; credit(a, VIP[now][3], 'VIP-Aufstieg: ' + VIP[now][0]); setTimeout(() => toast(`VIP-Stufe ${VIP[now][0]} erreicht: <b>+${num(VIP[now][3])} $</b>`, 'big', 4200), 1100); }
+}
+const pct = x => (x * 100).toLocaleString('de-DE') + ' %';
+function vipSummary(a) {
+  const i = a.vip, next = VIP[i + 1];
+  return { name: VIP[i][0], text: next ? `Stufe ${VIP[i][0]}. Noch ${money(next[1] - a.stats.wagered)} Umsatz bis ${next[0]}.` : 'Höchste Stufe Diamant erreicht.', part: next ? clamp((a.stats.wagered - VIP[i][1]) / (next[1] - VIP[i][1]), 0, 1) : 1 };
+}
+hooks.vip = () => {
+  const a = active(), v = vipSummary(a);
+  $('#vipNow').textContent = v.text; $('#vipBar2').style.width = (v.part * 100).toFixed(1) + '%';
+  $('#vipRake').textContent = money(a.rake); $('#vipClaim').disabled = a.rake < 1;
+  $('#vipBody').innerHTML = VIP.map((t, i) => `<tr class="${i === a.vip ? 'me' : ''}"><td>${i + 1}</td><td>${t[0]}${i === a.vip ? ' · deine Stufe' : ''}</td><td>${money(t[1])}</td><td>${pct(t[2])}</td><td>${t[3] ? money(t[3]) : '–'}</td></tr>`).join('');
+};
+function claimRake() {
+  const a = active(); if (isLocked(a)) return openPin('unlock');
+  const amt = Math.floor(a.rake); if (amt < 1) return;
+  a.rake -= amt; credit(a, amt, 'Rakeback'); save(); sfx.win(); toast(`Rakeback: <b>+${num(amt)} $</b>`, 'win'); refresh(); renderWallet();
+}
+function claimBonus() {
+  const a = active(); if (isLocked(a)) return openPin('unlock');
+  if (a.lastBonus === today()) return;
+  a.lastBonus = today(); credit(a, 250, 'Tagesbonus'); save(); sfx.win(); toast('Tagesbonus: <b>+250 $</b>', 'win'); refresh(); renderWallet();
+}
+function claimRefill() {
+  const a = active(); if (isLocked(a)) return openPin('unlock');
+  if (a.balance >= 10) return;
+  credit(a, 500 - a.balance, 'Neues Startgeld'); save(); sfx.win(); toast('Neues Startgeld: Guthaben auf <b>500 $</b> gesetzt', 'win'); refresh(); renderWallet();
+}
+function renderWallet() {
+  const a = active(), others = accounts.filter(x => x !== a);
+  $('#wBal').textContent = money(a.balance);
+  $('#wBonus').disabled = a.lastBonus === today(); $('#wBonus').textContent = a.lastBonus === today() ? 'Tagesbonus morgen wieder' : 'Tagesbonus: 250 $ abholen';
+  $('#wRake').disabled = a.rake < 1; $('#wRake').textContent = `Rakeback: ${money(a.rake)} abholen`;
+  $('#wRefill').hidden = a.balance >= 10;
+  $('#wSend').hidden = !others.length; $('#wNoSend').hidden = !!others.length;
+  $('#wTo').innerHTML = others.map(x => `<option value="${x.id}">${esc(x.name)}</option>`).join('');
+  $('#wTx').innerHTML = a.tx.slice(0, 12).map(x => `<li><span>${esc(x.l)} · ${new Date(x.t).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit' })}</span><span class="${x.a > 0 ? 'w' : 'l'}">${signed(x.a)}</span></li>`).join('') || '<li class="empty">Noch keine Gutschriften oder Überweisungen.</li>';
+}
+function initWallet() {
+  $('#wBonus').onclick = claimBonus; $('#wRake').onclick = claimRake; $('#wRefill').onclick = claimRefill; $('#vipClaim').onclick = claimRake;
+  $('#wSendBtn').onclick = () => {
+    const a = active(), to = accounts.find(x => x.id === $('#wTo').value), amt = parseInt($('#wAmt').value, 10) || 0;
+    if (isLocked(a)) return openPin('unlock');
+    if (!to || amt < 1) return toast('Bitte Empfänger und Betrag angeben.');
+    if (amt > a.balance) return toast(`Dafür reicht dein Guthaben nicht. Du hast ${money(a.balance)}.`);
+    credit(a, -amt, 'Überweisung an ' + to.name); credit(to, amt, 'Überweisung von ' + a.name);
+    save(); $('#wAmt').value = ''; toast(`${money(amt)} an ${esc(to.name)} gesendet.`); refresh(); renderWallet();
+  };
+}
+
+/* ---------- Slot ---------- */
+const SYM = [['7', 1, '#ee4b45'], ['★', 2, '#dba642'], ['◆', 3, '#6fc3ff'], ['☾', 4, '#c9a0ff'], ['A', 5, '#62d9a3'], ['K', 6, '#f08a4b'], ['Q', 7, '#ff9ecb'], ['J', 8, '#8fd3c8']];
+const SLINES = [[1, 1, 1, 1, 1], [0, 0, 0, 0, 0], [2, 2, 2, 2, 2], [0, 1, 2, 1, 0], [2, 1, 0, 1, 2], [0, 0, 1, 2, 2], [2, 2, 1, 0, 0], [1, 0, 0, 0, 1], [1, 2, 2, 2, 1], [0, 1, 1, 1, 0]];
+const SPAY = (() => {
+  const nice = v => v >= 20 ? Math.round(v) : Math.round(v * 10) / 10;
+  const raw = SYM.map(s => { const p = s[1] / 36, x = (1 / p) ** 1.5; return [p, [x, 4 * x, 20 * x]]; });
+  const ev = raw.reduce((e, [p, y]) => e + p ** 3 * (1 - p) * y[0] + p ** 4 * (1 - p) * y[1] + p ** 5 * y[2], 0);
+  return raw.map(([, y]) => y.map(v => nice(v * 0.97 / ev)));
+})();
+const S = { busy: false, grid: [] };
+const slotSym = () => { let r = rint(36); for (let i = 0; i < SYM.length; i++) { r -= SYM[i][1]; if (r < 0) return i; } return 7; };
+const slotCell = (s, cls = '') => `<div class="sc ${cls}" style="color:${SYM[s][2]}">${SYM[s][0]}</div>`;
+function slotDraw(win = new Set(), spinning = 5) {
+  let h = '';
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 5; c++) h += c >= 5 - spinning ? slotCell(Math.floor(Math.random() * 8), 'blur') : slotCell(S.grid[c][r], win.has(c * 3 + r) ? 'win' : win.size ? 'dim' : '');
+  $('#slotGrid').innerHTML = h;
+}
+async function slotSpin() {
+  if (S.busy) return false;
+  const bet = getBet('slots'); if (!takeBet(bet)) return false;
+  S.busy = true; $('#slotBtn').disabled = true; setStatus('slotStatus', 'Die Walzen drehen sich …');
+  S.grid = Array.from({ length: 5 }, () => [slotSym(), slotSym(), slotSym()]);
+  const fast = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  for (let stop = 0; stop <= 5 && !fast; stop++) { for (let k = 0; k < (stop ? 3 : 6); k++) { slotDraw(new Set(), 5 - stop); await sleep(55); } if (stop && stop < 6) sfx.tick(); }
+  const win = new Set(), hits = []; let total = 0;
+  SLINES.forEach((ln, li) => {
+    const s = S.grid[0][ln[0]]; let n = 1; while (n < 5 && S.grid[n][ln[n]] === s) n++;
+    if (n >= 3) { total += SPAY[s][n - 3] * bet / 10; hits.push(`${n}× ${SYM[s][0]}`); for (let c = 0; c < n; c++) win.add(c * 3 + ln[c]); }
+  });
+  S.busy = false; slotDraw(win, 0);
+  const r = settle('slots', bet, total, { quiet: total < bet * 10 });
+  setStatus('slotStatus', hits.length ? `${hits.join(', ')}: ${r.profit > 0 ? signed(r.profit) : 'Auszahlung ' + money(total) + ', ' + signed(r.profit)}.` : `Keine Gewinnlinie. ${signed(r.profit)}.`, r.profit > 0 ? 'win' : 'lose');
+  $('#slotBtn').disabled = false; return true;
+}
+function initSlots() {
+  S.grid = Array.from({ length: 5 }, () => [slotSym(), slotSym(), slotSym()]); slotDraw(new Set(), 0);
+  $('#slotBtn').onclick = slotSpin;
+  $('#slotPays').innerHTML = SYM.map((s, i) => `<tr><td style="color:${s[2]};font:600 20px var(--display)">${s[0]}</td>${SPAY[i].map(v => `<td>${fx(v / 10)}</td>`).join('')}</tr>`).join('');
+}
+
+/* ---------- Autospiel ---------- */
+function autoplay(btnId, g, play) {
+  const b = $('#' + btnId); let run = false;
+  b.onclick = async () => {
+    if (run) { run = false; return; }
+    run = true; b.textContent = 'Stopp';
+    for (let i = 0; i < 25 && run && page === g; i++) { if (!await play()) break; await sleep(280); }
+    run = false; b.textContent = '25× Auto';
+  };
+}
+
+/* ---------- Lobby ---------- */
+const CAT = { blackjack: 'table', roulette: 'table', hilo: 'table', slots: 'slots' };
+let lobbyCat = 'all', lobbyQuery = '', feedMode = 'all';
+const tile = (g, a) => `<div class="gtile" style="--tint:${g.tint}"><button class="gplay" data-go="${g.id}">${icon(g.id)}<b>${g.name}</b><small>${g.desc}</small></button><button class="fav" data-fav="${g.id}" aria-pressed="${a.favs.includes(g.id)}" aria-label="${g.name} als Favorit merken">★</button></div>`;
+function renderGames() {
+  const a = active(), q = lobbyQuery.toLowerCase();
+  const list = GAMES.filter(g => (lobbyCat === 'all' || (lobbyCat === 'fav' ? a.favs.includes(g.id) : (CAT[g.id] || 'orig') === lobbyCat)) && (!q || (g.name + ' ' + g.desc).toLowerCase().includes(q)));
+  $('#games').innerHTML = list.map(g => tile(g, a)).join('');
+  $('#noGames').hidden = !!list.length;
+  $('#noGames').textContent = lobbyCat === 'fav' && !q ? 'Noch keine Favoriten. Tippe bei einem Spiel auf den Stern.' : 'Kein Spiel gefunden. Versuch es mit einem anderen Suchwort.';
+  const rec = [...new Set(a.history.map(h => h.g))].slice(0, 5).map(id => GAMES.find(g => g.id === id)).filter(Boolean);
+  $('#recentRow').hidden = !rec.length || !!q || lobbyCat !== 'all';
+  $('#recentGames').innerHTML = rec.map(g => tile(g, a)).join('');
+}
+function renderFeed() {
+  let rows = feedMode === 'mine' ? active().history.map(h => ({ ...h, who: active().name })) : accounts.flatMap(a => a.history.map(h => ({ ...h, who: a.name })));
+  if (feedMode === 'big') rows = rows.filter(h => h.p > h.b).sort((x, y) => (y.p - y.b) - (x.p - x.b)); else rows.sort((x, y) => y.t - x.t);
+  $('#feedBody').innerHTML = rows.slice(0, 12).map(h => `<tr><td></td><td>${TITLES[h.g] || h.g}</td><td>${esc(h.who)}</td><td>${new Date(h.t).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}</td><td>${money(h.b)}</td><td>${fx(h.b ? h.p / h.b : 0)}</td><td class="${h.p > h.b ? 'pos' : h.p < h.b ? 'neg' : ''}">${signed(h.p - h.b)}</td></tr>`).join('') || '<tr><td></td><td colspan="6" class="empty" style="text-align:left">Noch keine Runden. Such dir oben ein Spiel aus.</td></tr>';
+}
+hooks.lobby = () => {
+  const a = active(), got = a.lastBonus === today(), v = vipSummary(a);
+  $('#bonusText').textContent = got ? 'Heute schon abgeholt. Morgen gibt es wieder 250 $.' : 'Einmal am Tag gibt es 250 $ geschenkt.';
+  $('#bonusBtn').disabled = got; $('#refillBtn').hidden = a.balance >= 10;
+  $('#vipText').textContent = v.text; $('#vipBar').style.width = (v.part * 100).toFixed(1) + '%';
+  renderQuests(); renderGames(); renderFeed();
+};
+function initLobby() {
+  $('#bonusBtn').onclick = claimBonus; $('#refillBtn').onclick = claimRefill;
+  $('#search').oninput = e => { lobbyQuery = e.target.value.trim(); renderGames(); };
+  seg('catSeg', v => { lobbyCat = v; renderGames(); });
+  seg('feedSeg', v => { feedMode = v; renderFeed(); });
+  $('#p-lobby').addEventListener('click', e => {
+    const f = e.target.closest('[data-fav]'); if (!f) return;
+    const a = active(), id = f.dataset.fav; a.favs = a.favs.includes(id) ? a.favs.filter(x => x !== id) : [...a.favs, id]; save(); sfx.click(); renderGames();
+  });
 }
 
 /* ---------- Rangliste ---------- */
@@ -1868,7 +2240,7 @@ hooks.profil = () => {
   $('#achCount').textContent = `${ACH.filter(x => a.ach[x[0]]).length} von ${ACH.length}`;
   $('#achs').innerHTML = ACH.map(([k, n, d]) => `<div class="ach${a.ach[k] ? ' got' : ''}"><b>${n}</b><span>${d}</span></div>`).join('');
 };
-const roundRunning = () => M.on || T.on || C.on || B.phase !== 'idle' || R.busy || D.busy || P.balls.length > 0 || L.busy || K.busy || H.on || W.busy;
+const roundRunning = () => M.on || T.on || C.on || B.phase !== 'idle' || R.busy || D.busy || P.balls.length > 0 || L.busy || K.busy || H.on || W.busy || S.busy;
 function setActive(id) {
   if (id === activeId) return;
   if (roundRunning()) return toast('Beende zuerst die laufende Runde.');
@@ -1978,12 +2350,15 @@ function init() {
     };
     betInput(g).addEventListener('input', e => e.target.value = e.target.value.replace(/\D/g, '').slice(0, 9));
   });
-  initLobby(); initMines(); initDice(); initPlinko(); initTower(); initBlackjack(); initRoulette(); initCrash(); initLimbo(); initKeno(); initHilo(); initWheel(); initProfil(); initSettings();
+  initLobby(); initMines(); initDice(); initPlinko(); initTower(); initBlackjack(); initRoulette(); initCrash(); initLimbo(); initKeno(); initHilo(); initWheel(); initSlots(); initFair(); initWallet(); initProfil();
+  autoplay('slotAuto', 'slots', slotSpin); autoplay('limboAuto', 'limbo', limboPlay); autoplay('kenoAuto', 'keno', kenoPlay);
+  autoplay('wheelAuto', 'wheel', wheelSpin); autoplay('diceAuto', 'dice', () => diceRoll(false)); initSettings();
   seg('rangSort', v => { rangSort = v; hooks.rang(); });
 
   document.addEventListener('click', e => {
     const g = e.target.closest('[data-go]'); if (g) { e.preventDefault(); sfx.click(); return go(g.dataset.go); }
-    if (e.target.closest('[data-open="settings"]')) return $('#dlgSettings').showModal();
+    const o = e.target.closest('[data-open]');
+    if (o) { const k = o.dataset.open; if (k === 'wallet') renderWallet(); if (k === 'fair') renderFair(); return $({ settings: '#dlgSettings', wallet: '#dlgWallet', fair: '#dlgFair' }[k]).showModal(); }
     const c = e.target.closest('[data-close]'); if (c) c.closest('dialog').close();
   });
   $('.brand').onclick = e => { e.preventDefault(); go('lobby'); };
