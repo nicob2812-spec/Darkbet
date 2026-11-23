@@ -570,6 +570,46 @@ button.balance:hover{border-color:var(--brass)}
   .vgrid{grid-template-columns:1fr 1fr}
   .slots{gap:5px;padding:8px}
 }
+
+/* ---------- Turnier, Limits, Blackjack-Hände, Effekte ---------- */
+.hands{display:flex;gap:30px;justify-content:center;flex-wrap:wrap}
+.hand-wrap.active p{color:var(--brass);font-weight:600}
+.hand-wrap.active .hand{filter:drop-shadow(0 0 14px rgba(219,166,66,.55))}
+.sess{display:flex;gap:14px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:13.5px;margin:-8px 0 14px}
+.sess button{background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:0}
+.sess button:hover{color:var(--ink)}
+.runpill{padding:9px 14px;border-radius:99px;border:1px solid var(--brass);background:rgba(219,166,66,.12);color:var(--brass);font-weight:600;font-size:13.5px;white-space:nowrap}
+.sc.sp8{font-size:clamp(13px,2.6vw,20px);font-family:var(--ui);font-weight:700;background:linear-gradient(135deg,#6b1626,#2c0d17);box-shadow:inset 0 0 0 1px rgba(244,234,220,.4)}
+.sc.sp9{font-size:clamp(13px,2.6vw,20px);font-family:var(--ui);font-weight:700;background:linear-gradient(135deg,#5a4212,#241a0b);box-shadow:inset 0 0 0 1px rgba(219,166,66,.7)}
+
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:60}
+.page:not([hidden]){animation:pagein .22s ease-out}
+@keyframes pagein{from{opacity:0;transform:translateY(8px)}}
+.stage.fx-win{animation:glow-win .9s}
+.stage.fx-lose{animation:glow-lose .6s}
+@keyframes glow-win{25%{box-shadow:inset 0 0 0 2px var(--win),inset 0 0 110px rgba(98,217,163,.4)}}
+@keyframes glow-lose{25%{box-shadow:inset 0 0 0 2px var(--red),inset 0 0 90px rgba(238,75,69,.3)}}
+.floaty{
+  position:absolute;left:50%;top:44%;z-index:3;pointer-events:none;white-space:nowrap;
+  font:600 44px/1 var(--display);color:var(--win);text-shadow:0 4px 18px rgba(0,0,0,.7);
+  animation:floaty 1.35s ease-out forwards;
+}
+.floaty.big{font-size:72px;color:var(--brass)}
+@keyframes floaty{0%{opacity:0;transform:translate(-50%,24px) scale(.6)}14%{opacity:1;transform:translate(-50%,0) scale(1.1)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-110px) scale(1)}}
+@keyframes flip{from{transform:rotateY(90deg) scale(.8)}}
+@keyframes pop2{50%{transform:scale(1.22)}}
+@keyframes pulse{50%{transform:scale(1.12);box-shadow:inset 0 0 0 2px var(--brass),0 0 26px rgba(219,166,66,.65)}}
+.tile.gem:not(.ghost),.tile.bomb:not(.ghost):not(.hit){animation:flip .32s ease-out}
+.kn.hit,.ttile.safe:not(.ghost),.dice-roll.win,.dice-roll.lose,.cell.hitnum{animation:pop2 .32s}
+.sc.win{animation:pulse .7s 2}
+.gplay svg{transition:transform .25s cubic-bezier(.3,1.5,.5,1)}
+.gplay:hover svg{transform:translateX(-50%) scale(1.14) rotate(-4deg)}
+.btn.primary:not(:disabled):hover,.btn.cash:not(:disabled):hover{box-shadow:0 6px 22px rgba(219,166,66,.28)}
+.btn.cash:not(:disabled){animation:breathe 1.6s ease-in-out infinite}
+@keyframes breathe{50%{box-shadow:0 0 0 6px rgba(98,217,163,.18)}}
+.toast.big{animation:toast-in .25s cubic-bezier(.2,.9,.3,1.2),shine 1.2s .25s}
+@keyframes shine{40%{filter:brightness(1.35)}}
+@media (max-width:820px){.runpill{display:none}.floaty{font-size:34px}.floaty.big{font-size:48px}}
 </style>
 </head>
 <body>
@@ -591,6 +631,8 @@ button.balance:hover{border-color:var(--brass)}
     <symbol id="i-vip" viewBox="0 0 24 24"><path d="M4 17.5L2.5 8l5 4L12 5l4.5 7 5-4L20 17.5z"/><path d="M4 21h16"/></symbol>
     <symbol id="i-wallet" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/></symbol>
     <symbol id="i-fair" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.3 7.8-8 9-4.700-1.200-8-4.500-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+    <symbol id="i-turnier" viewBox="0 0 24 24"><path d="M5 21V4M5 4.5c3-2 5 2 8 0s4-1 6 0v8c-2-1-3-2-6 0s-5-2-8 0"/></symbol>
+    <symbol id="i-limits" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.500 2"/></symbol>
     <symbol id="i-rang" viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4c0 3 1.500 4.500 3.500 5M17 6h3c0 3-1.500 4.500-3.500 5M12 14v4M8.500 20h7"/></symbol>
     <symbol id="i-profil" viewBox="0 0 24 24"><circle cx="12" cy="8.500" r="4"/><path d="M4.500 20.500c1-4 4-5.500 7.500-5.500s6.500 1.500 7.500 5.500"/></symbol>
     <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.500v3M12 18.500v3M2.500 12h3M18.500 12h3M5.300 5.300l2.100 2.100M16.600 16.600l2.100 2.100M18.700 5.300l-2.100 2.100M7.400 16.600l-2.100 2.100"/></symbol>
@@ -619,8 +661,10 @@ button.balance:hover{border-color:var(--brass)}
     <h2>Konto</h2>
     <button class="nav" data-open="wallet"><svg class="ico"><use href="#i-wallet"/></svg>Kasse</button>
     <button class="nav" data-go="vip"><svg class="ico"><use href="#i-vip"/></svg>VIP-Club</button>
+    <button class="nav" data-go="turnier"><svg class="ico"><use href="#i-turnier"/></svg>Turnier</button>
     <button class="nav" data-go="rang"><svg class="ico"><use href="#i-rang"/></svg>Rangliste</button>
     <button class="nav" data-go="profil"><svg class="ico"><use href="#i-profil"/></svg>Profil</button>
+    <button class="nav" data-open="limits"><svg class="ico"><use href="#i-limits"/></svg>Spiellimits</button>
     <button class="nav" data-open="fair"><svg class="ico"><use href="#i-fair"/></svg>Fairness</button>
     <button class="nav" data-open="settings"><svg class="ico"><use href="#i-gear"/></svg>Einstellungen</button>
     <div class="spacer"></div>
@@ -630,11 +674,13 @@ button.balance:hover{border-color:var(--brass)}
   <div class="main">
     <header class="top">
       <h1 id="title">Lobby</h1>
+      <button class="runpill" id="runPill" data-go="turnier" hidden></button>
       <div class="level" title="Level-Fortschritt"><span id="lvl">Level 1</span><div class="meter"><i id="lvlBar"></i></div></div>
       <button class="balance" id="balance" data-open="wallet" title="Kasse öffnen" aria-live="polite">0 $</button>
       <button class="cashier" data-open="wallet">Kasse</button>
       <button class="who" data-go="profil" title="Profil und Konten"><svg class="ico"><use href="#i-profil"/></svg><span id="who">Gast</span></button>
     </header>
+    <div class="sess" id="sess" hidden><span id="sessText"></span><button id="sessReset">Zurücksetzen</button></div>
 
     <!-- Lobby -->
     <section class="page" id="p-lobby">
@@ -787,7 +833,7 @@ button.balance:hover{border-color:var(--brass)}
         <p class="status" id="bjStatus">Einsatz wählen und Karten geben.</p>
         <div class="bj">
           <div class="hand-wrap"><p>Dealer<b id="bjDSum"></b></p><div class="hand" id="bjDealer"></div></div>
-          <div class="hand-wrap"><div class="hand" id="bjPlayer"></div><p>Du<b id="bjPSum"></b></p></div>
+          <div class="hands" id="bjHands"></div>
         </div>
       </div>
       <aside class="panel">
@@ -797,8 +843,10 @@ button.balance:hover{border-color:var(--brass)}
           <button class="btn" id="bjHit" disabled>Karte</button>
           <button class="btn" id="bjStand" disabled>Halten</button>
           <button class="btn" id="bjDouble" disabled>Verdoppeln</button>
+          <button class="btn" id="bjSplit" disabled>Teilen</button>
         </div>
-        <p class="note">Blackjack zahlt 3:2. Der Dealer zieht bis 16 und hält ab 17. Verdoppeln geht nur mit den ersten zwei Karten.</p>
+        <div class="row" id="bjInsRow" hidden><button class="btn" id="bjIns">Versichern</button><button class="btn" id="bjNoIns">Ohne Versicherung</button></div>
+        <p class="note">Blackjack zahlt 3:2. Der Dealer zieht bis 16 und hält ab 17. Verdoppeln geht nur mit den ersten zwei Karten. Zwei gleichwertige Karten kannst du einmal teilen. Zeigt der Dealer ein Ass, kannst du dich für den halben Einsatz gegen Blackjack versichern.</p>
       </aside>
       <div class="recent" data-recent="blackjack"></div>
     </section>
@@ -947,7 +995,7 @@ button.balance:hover{border-color:var(--brass)}
           <summary>Gewinntabelle</summary>
           <table><thead><tr><th>Symbol</th><th>3 gleiche</th><th>4 gleiche</th><th>5 gleiche</th></tr></thead><tbody id="slotPays"></tbody></table>
         </details>
-        <p class="note">Gewertet werden gleiche Symbole von links auf einer der zehn Linien. Die Tabelle zeigt den Multiplikator auf den gesamten Einsatz. Auszahlungsquote rund 97 %.</p>
+        <p class="note">Gewertet werden gleiche Symbole von links auf einer der zehn Linien. Die Tabelle zeigt den Multiplikator auf den gesamten Einsatz. „Wild“ ersetzt jedes Symbol. Drei oder mehr „Frei“-Felder irgendwo im Bild bringen 5 Freispiele mit dem gleichen Einsatz. Auszahlungsquote <span id="slotRtp"></span>.</p>
       </aside>
       <div class="recent" data-recent="slots"></div>
     </section>
@@ -965,6 +1013,19 @@ button.balance:hover{border-color:var(--brass)}
         <tbody id="vipBody"></tbody>
       </table></div>
       <p class="note" style="margin-top:14px;max-width:70ch">Die Stufe hängt vom gesamten Umsatz ab, also von der Summe aller Einsätze. Von jedem Einsatz fließt der Rakeback-Anteil deiner Stufe in einen Topf, den du jederzeit abholen kannst.</p>
+    </section>
+    <!-- Turnier -->
+    <section class="page" id="p-turnier" hidden>
+      <p class="lead" style="max-width:72ch">Tagesturnier unter allen Konten in diesem Browser. Ein Lauf zählt deine nächsten 20 Runden, egal in welchem Spiel. Jede Runde bringt (Multiplikator − 1) × 100 Punkte – die Höhe des Einsatzes spielt keine Rolle. Dein bester Lauf des Tages kommt in die Wertung.</p>
+      <div class="vipclaim">
+        <div><span id="tourState"></span><strong id="tourPts">–</strong></div>
+        <button class="btn primary" id="tourStart">Lauf starten</button>
+      </div>
+      <div class="tablewrap"><table style="min-width:420px">
+        <thead><tr><th>Platz</th><th>Name</th><th>Punkte</th><th>Preisgeld</th></tr></thead>
+        <tbody id="tourBody"></tbody>
+      </table></div>
+      <p class="note" style="margin-top:14px;max-width:72ch">Preisgeld für die Plätze 1 bis 3: 300 $, 150 $ und 75 $. Es wird ausgezahlt, sobald ein Lauf mit positivem Punktestand endet, einmal pro Tag und Konto. Freispiele im Slot zählen nicht als Runde.</p>
     </section>
 
     <!-- Rangliste -->
@@ -1022,7 +1083,7 @@ button.balance:hover{border-color:var(--brass)}
     </section>
     <footer class="foot">
       <p>Darkbet ist ein Spiel mit Spielgeld. Es gibt keine Einzahlungen, keine Auszahlungen und keine echten Gewinne. Alle Daten bleiben in diesem Browser.</p>
-      <button data-open="fair">Fairness prüfen</button><button data-go="vip">VIP-Club</button><button data-open="settings">Einstellungen</button>
+      <button data-open="fair">Fairness prüfen</button><button data-open="limits">Spiellimits</button><button data-go="turnier">Turnier</button><button data-go="vip">VIP-Club</button><button data-open="settings">Einstellungen</button>
     </footer>
   </div>
 </div>
@@ -1035,6 +1096,7 @@ button.balance:hover{border-color:var(--brass)}
   <button data-open="settings"><svg class="ico"><use href="#i-gear"/></svg>Einstellungen</button>
 </nav>
 
+<canvas id="fx" aria-hidden="true"></canvas>
 <div class="toasts" id="toasts" aria-live="polite"></div>
 
 <dialog id="dlgSettings" class="wide">
@@ -1103,6 +1165,18 @@ button.balance:hover{border-color:var(--brass)}
   <div class="actions"><button class="btn" data-close>Schließen</button></div>
 </dialog>
 
+<dialog id="dlgLimits">
+  <h2>Spiellimits</h2>
+  <p class="hint" id="limNow"></p>
+  <label class="field"><span>Verlustlimit pro Tag in $ (leer = kein Limit)</span><input type="number" id="limLoss" min="0" placeholder="z. B. 500"></label>
+  <label class="field" style="margin-top:12px"><span>Erinnerung an die Spielzeit</span>
+    <select id="limRemind"><option value="0">Keine Erinnerung</option><option value="15">Alle 15 Minuten</option><option value="30">Alle 30 Minuten</option><option value="60">Jede Stunde</option></select>
+  </label>
+  <div class="row" style="margin-top:14px"><button class="btn" id="limSave">Limits speichern</button><button class="btn danger" id="limPause">Für heute pausieren</button></div>
+  <p class="hint" style="margin:14px 0 0">Ist das Verlustlimit erreicht, sind bis zum nächsten Tag keine Einsätze mehr möglich. Laufende Runden kannst du immer noch auszahlen. Die Limits gelten für das aktive Konto.</p>
+  <div class="actions"><button class="btn" data-close>Schließen</button></div>
+</dialog>
+
 <dialog id="dlgPin">
   <form method="dialog" id="pinForm">
     <h2 id="pinTitle">PIN</h2>
@@ -1152,7 +1226,7 @@ const GAMES = [
   { id: 'wheel', name: 'Glücksrad', desc: 'Drehen und auf ein gutes Feld hoffen.', fact: 'Bis 9,90×', tint: '#c9a0ff' },
   { id: 'slots', name: 'Nachtschicht', desc: 'Slot mit fünf Walzen und zehn Linien.', fact: '10 Linien', tint: '#dba642' },
 ];
-const TITLES = { lobby: 'Lobby', rang: 'Rangliste', profil: 'Profil', vip: 'VIP-Club' };
+const TITLES = { lobby: 'Lobby', rang: 'Rangliste', profil: 'Profil', vip: 'VIP-Club', turnier: 'Turnier' };
 GAMES.forEach(g => TITLES[g.id] = g.name);
 
 /* ---------- Speicher ---------- */
@@ -1185,10 +1259,13 @@ function normalize(a) {
   if (!a.fair || typeof a.fair.server !== 'string' || typeof a.fair.client !== 'string') a.fair = { server: randHex(32), client: randHex(6), nonce: 0 };
   a.fair.nonce = Math.max(0, Math.floor(Number(a.fair.nonce) || 0));
   if (!(a.vip >= 0 && a.vip < VIP.length)) a.vip = vipOf(a);
+  const l = a.limits && typeof a.limits === 'object' ? a.limits : {};
+  a.limits = { loss: Math.max(0, Math.floor(Number(l.loss) || 0)), remind: Number(l.remind) || 0, pause: typeof l.pause === 'string' ? l.pause : '' };
+  if (!a.run || typeof a.run !== 'object' || !(a.run.left > 0)) a.run = null;
   return a;
 }
 const newAccount = name => normalize({ id: uid(), name, balance: 1000, xp: 0 });
-const save = () => { try { localStorage.setItem(LS_KEY, JSON.stringify({ accounts, activeId })); } catch (e) {} };
+const save = () => { try { localStorage.setItem(LS_KEY, JSON.stringify({ accounts, activeId, tour })); } catch (e) {} };
 const saveSet = () => { try { localStorage.setItem(LS_SET, JSON.stringify(set)); } catch (e) {} };
 const active = () => accounts.find(a => a.id === activeId) || accounts[0];
 const isLocked = a => !!a.pinHash && !unlocked.has(a.id);
@@ -1196,7 +1273,7 @@ const isLocked = a => !!a.pinHash && !unlocked.has(a.id);
 function load() {
   try {
     const p = JSON.parse(localStorage.getItem(LS_KEY) || 'null');
-    if (p && Array.isArray(p.accounts) && p.accounts.length) { accounts = p.accounts.map(normalize); activeId = p.activeId; }
+    if (p && Array.isArray(p.accounts) && p.accounts.length) { accounts = p.accounts.map(normalize); activeId = p.activeId; if (p.tour && typeof p.tour === 'object' && p.tour.best && p.tour.paid) tour = p.tour; }
   } catch (e) {}
   if (!accounts.length) accounts = [newAccount('Gast')];
   if (!accounts.some(a => a.id === activeId)) activeId = accounts[0].id;
@@ -1220,15 +1297,31 @@ function tone(freq, dur = 0.09, type = 'sine', gain = 1, to = null, delay = 0) {
     o.connect(g).connect(ac.destination); o.start(t); o.stop(t + dur + 0.02);
   } catch (e) {}
 }
+function noise(dur = 0.15, gain = 1, freq = 1200, type = 'bandpass', delay = 0) {
+  if (set.mute || !set.volume) return;
+  try {
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    const n = Math.floor(ac.sampleRate * dur), buf = ac.createBuffer(1, n, ac.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / n) ** 2;
+    const src = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain(), t = ac.currentTime + delay;
+    src.buffer = buf; f.type = type; f.frequency.value = freq; g.gain.value = 0.25 * gain * set.volume / 100;
+    src.connect(f).connect(g).connect(ac.destination); src.start(t);
+  } catch (e) {}
+}
+const chord = (fs, step = 0.07, type = 'triangle', g = 1, dur = 0.26) => fs.forEach((f, i) => tone(f, dur, type, g, null, i * step));
 const sfx = {
-  click: () => tone(520, 0.05, 'triangle', 0.6),
-  tick: () => tone(900, 0.03, 'square', 0.25),
-  gem: n => tone(520 + Math.min(n, 14) * 45, 0.14, 'sine', 1, 900 + n * 45),
-  bomb: () => tone(160, 0.4, 'sawtooth', 1.2, 40),
-  card: () => tone(300, 0.05, 'triangle', 0.7, 180),
-  win: () => { tone(523, 0.12); tone(659, 0.12, 'sine', 1, null, 0.09); tone(784, 0.2, 'sine', 1, null, 0.18); },
-  big: () => [523, 659, 784, 1047, 1319].forEach((f, i) => tone(f, 0.22, 'triangle', 1.1, null, i * 0.09)),
-  lose: () => tone(220, 0.22, 'sine', 0.8, 140),
+  click: () => tone(660, 0.04, 'triangle', 0.5),
+  tick: () => tone(1100, 0.025, 'square', 0.18),
+  gem: n => { const k = Math.min(n, 16) * 40; tone(660 + k, 0.18, 'sine', 1, 990 + k); tone(1320 + k, 0.12, 'triangle', 0.4, null, 0.05); },
+  bomb: () => { noise(0.55, 1.8, 240, 'lowpass'); tone(110, 0.45, 'sawtooth', 1, 35); },
+  card: () => noise(0.07, 0.9, 2600, 'highpass'),
+  reel: () => { noise(0.05, 1.1, 500, 'lowpass'); tone(140, 0.06, 'sine', 0.9); },
+  coin: (delay = 0) => { tone(1568, 0.07, 'square', 0.3, null, delay); tone(2093, 0.22, 'square', 0.3, null, delay + 0.07); },
+  rise: m => tone(240 + Math.min(m, 25) * 55, 0.07, 'sine', 0.35),
+  win: () => { chord([523, 659, 784, 1047]); sfx.coin(0.3); },
+  big: () => { chord([523, 659, 784, 1047, 1319, 1568], 0.08, 'triangle', 1.1, 0.4); chord([1047, 1319, 1568, 2093], 0.08, 'sine', 0.6, 0.5); noise(0.9, 0.5, 6000, 'highpass', 0.45); sfx.coin(0.6); sfx.coin(0.78); },
+  streak: n => chord([659, 784, 988].map(f => f * (1 + Math.min(n, 10) * 0.03)), 0.05, 'square', 0.4, 0.14),
+  lose: () => tone(196, 0.25, 'triangle', 0.8, 130),
 };
 
 /* ---------- Level & Erfolge ---------- */
@@ -1271,6 +1364,7 @@ function takeBet(amount) {
   const a = active();
   if (isLocked(a)) { openPin('unlock'); return false; }
   if (!(amount >= 1)) { toast('Bitte einen Einsatz von mindestens 1 $ eingeben.'); return false; }
+  const blk = limitBlock(a, amount); if (blk) { toast(blk, '', 4200); return false; }
   if (amount > a.balance) { toast(a.balance < 10 ? 'Dein Guthaben ist aufgebraucht. In der Lobby gibt es neues Startgeld.' : `Dafür reicht dein Guthaben nicht. Du hast ${money(a.balance)}.`); return false; }
   a.fair.nonce++; a.balance -= amount; save(); renderTop('down');
   return true;
@@ -1290,7 +1384,7 @@ function settle(g, bet, payout, o = {}) {
   a.xp += 5 + Math.min(40, Math.floor(bet / 25)) + (win ? 8 : 0);
   const lvNow = levelOf(a.xp).level;
   if (lvNow > lvBefore) { credit(a, 100 * lvNow, 'Level ' + lvNow); setTimeout(() => toast(`Level ${lvNow} erreicht: <b>+${num(100 * lvNow)} $</b>`, 'win', 3400), 500); }
-  questProgress(a, g, bet, win, mult); vipProgress(a, bet);
+  questProgress(a, g, bet, win, mult); vipProgress(a, bet); tourRound(a, bet, payout); dayOf(a).p += profit;
   a.balHist.push(a.balance); if (a.balHist.length > 120) a.balHist.shift();
 
   unlock(a, 'first_round');
@@ -1312,6 +1406,7 @@ function settle(g, bet, payout, o = {}) {
     else if (profit === 0) toast(`${TITLES[g]}: Einsatz zurück`);
   }
   if (!o.silent) (big ? sfx.big : win ? sfx.win : profit < 0 ? sfx.lose : sfx.click)();
+  fxRound(profit, big); sessTrack(bet, profit);
   return { profit, win, mult };
 }
 function setStatus(id, text, kind = '') { const el = $('#' + id); el.textContent = text; el.className = 'status ' + kind; }
@@ -1322,7 +1417,7 @@ function renderTop(flash) {
   $('#who').textContent = a.name + (isLocked(a) ? ' (gesperrt)' : '');
   $('#lvl').textContent = 'Level ' + lv.level;
   $('#lvlBar').style.width = (lv.into / lv.next * 100).toFixed(1) + '%';
-  const b = $('#balance'); b.textContent = money(a.balance);
+  const b = $('#balance'); countTo(b, a.balance); renderRun();
   if (flash) { b.classList.remove('up', 'down'); void b.offsetWidth; b.classList.add(flash); }
 }
 function renderRecent(g) {
@@ -1340,6 +1435,7 @@ function go(p) {
   $$('.nav[data-go]').forEach(el => el.dataset.go === p ? el.setAttribute('aria-current', 'page') : el.removeAttribute('aria-current'));
   $$('.tabbar [data-go]').forEach(el => el.dataset.go === tab ? el.setAttribute('aria-current', 'page') : el.removeAttribute('aria-current'));
   $('#title').textContent = TITLES[p];
+  $('#sess').hidden = !GAMES.some(g => g.id === p);
   document.title = p === 'lobby' ? 'Darkbet' : TITLES[p] + ' · Darkbet';
   if (location.hash.slice(1) !== p) history.pushState(null, '', '#' + p);
   renderRecent(p);
@@ -1589,7 +1685,7 @@ function initTower() {
 }
 
 /* ---------- Blackjack ---------- */
-const B = { phase: 'idle', bet: 0, deck: [], p: [], d: [], hide: true };
+const B = { phase: 'idle', deck: [], hands: [], cur: 0, d: [], hide: true, ins: 0 };
 const bjVal = c => c.r === 'A' ? 11 : 'KQJ'.includes(c.r) || c.r === '10' ? 10 : +c.r;
 function bjSum(h) { let s = 0, a = 0; for (const c of h) { s += bjVal(c); if (c.r === 'A') a++; } while (s > 21 && a) { s -= 10; a--; } return s; }
 function bjDraw() {
@@ -1611,59 +1707,99 @@ function bjSync(el, hand, hideSecond) {
   });
 }
 function bjUI() {
-  bjSync($('#bjDealer'), B.d, B.hide); bjSync($('#bjPlayer'), B.p, false);
+  bjSync($('#bjDealer'), B.d, B.hide);
+  const box = $('#bjHands'), n = Math.max(1, B.hands.length);
+  while (box.children.length > n) box.lastChild.remove();
+  while (box.children.length < n) box.insertAdjacentHTML('beforeend', '<div class="hand-wrap"><div class="hand"></div><p></p></div>');
+  [...box.children].forEach((el, i) => {
+    const h = B.hands[i];
+    bjSync($('.hand', el), h ? h.cards : [], false);
+    el.classList.toggle('active', B.phase === 'player' && i === B.cur && B.hands.length > 1);
+    $('p', el).innerHTML = `${B.hands.length > 1 ? 'Hand ' + (i + 1) : 'Du'}<b>${h && h.cards.length ? bjSum(h.cards) : ''}</b>`;
+  });
   $('#bjDSum').textContent = B.d.length ? (B.hide ? bjVal(B.d[0]) : bjSum(B.d)) : '';
-  $('#bjPSum').textContent = B.p.length ? bjSum(B.p) : '';
-  const play = B.phase === 'player';
+  const play = B.phase === 'player', h = B.hands[B.cur], bal = active().balance, two = play && h.cards.length === 2;
   $('#bjDeal').disabled = B.phase !== 'idle'; $('#bjHit').disabled = !play; $('#bjStand').disabled = !play;
-  $('#bjDouble').disabled = !(play && B.p.length === 2 && active().balance >= B.bet);
+  $('#bjDouble').disabled = !(two && bal >= h.bet);
+  $('#bjSplit').disabled = !(two && B.hands.length === 1 && bjVal(h.cards[0]) === bjVal(h.cards[1]) && bal >= h.bet);
+  $('#bjInsRow').hidden = B.phase !== 'insurance';
   betInput('blackjack').disabled = B.phase !== 'idle';
 }
-function bjEnd(payout, text, label) {
-  B.hide = false; B.phase = 'idle';
-  const r = settle('blackjack', B.bet, payout, { label });
+function bjFinish(text) {
+  B.hide = false;
+  const d = bjSum(B.d), dBJ = B.d.length === 2 && d === 21, one = B.hands.length === 1, first = B.hands[0];
+  const natural = one && first.cards.length === 2 && bjSum(first.cards) === 21;
+  let pay = B.ins && dBJ ? B.ins * 3 : 0, total = B.ins;
+  for (const h of B.hands) {
+    total += h.bet; const p = bjSum(h.cards);
+    if (p > 21) continue;
+    if (natural) { pay += dBJ ? h.bet : h.bet * 2.5; continue; }
+    if (dBJ) continue;
+    if (d > 21 || p > d) pay += h.bet * 2; else if (p === d) pay += h.bet;
+  }
+  if (!text) { const p = bjSum(first.cards); text = !one ? `Dealer hat ${d > 21 ? 'sich überkauft' : d}.` : p > 21 ? `Überkauft mit ${p}.` : d > 21 ? `Dealer überkauft mit ${d}.` : `${p} gegen ${d}.`; }
+  if (B.ins) text += dBJ ? ' Die Versicherung zahlt.' : ' Die Versicherung ist verloren.';
+  B.phase = 'idle';
+  const r = settle('blackjack', total, pay, { label: natural && !dBJ ? 'Blackjack' : pay > total ? 'Sieg' : pay === total ? 'Push' : 'Niederlage' });
   setStatus('bjStatus', `${text} ${r.profit ? signed(r.profit) + '.' : 'Einsatz zurück.'}`, r.profit > 0 ? 'win' : r.profit < 0 ? 'lose' : '');
   bjUI();
+}
+function bjPeek() {
+  const pb = bjSum(B.hands[0].cards) === 21, db = bjSum(B.d) === 21;
+  if (pb) unlock(active(), 'natural');
+  if (db) return bjFinish(pb ? 'Beide haben Blackjack.' : 'Der Dealer hat Blackjack.');
+  if (pb) return bjFinish('Blackjack!');
+  B.phase = 'player'; setStatus('bjStatus', 'Karte ziehen, halten, verdoppeln oder teilen?'); bjUI();
 }
 async function bjDeal() {
   if (B.phase !== 'idle') return;
   const bet = getBet('blackjack'); if (!takeBet(bet)) return;
-  Object.assign(B, { phase: 'deal', bet, p: [], d: [], hide: true });
-  $('#bjDealer').innerHTML = ''; $('#bjPlayer').innerHTML = '';
+  Object.assign(B, { phase: 'deal', hands: [{ cards: [], bet }], cur: 0, d: [], hide: true, ins: 0 });
+  $('#bjDealer').innerHTML = ''; $('#bjHands').innerHTML = '';
   setStatus('bjStatus', 'Karten werden gegeben …'); bjUI();
-  for (const h of [B.p, B.d, B.p, B.d]) { h.push(bjDraw()); bjUI(); await sleep(260); }
-  const pb = bjSum(B.p) === 21, db = bjSum(B.d) === 21;
-  if (pb) unlock(active(), 'natural');
-  if (pb && db) return bjEnd(B.bet, 'Beide haben Blackjack.', 'Push');
-  if (pb) return bjEnd(B.bet * 2.5, 'Blackjack!', 'Blackjack');
-  if (db) return bjEnd(0, 'Der Dealer hat Blackjack.', 'Dealer 21');
-  B.phase = 'player'; setStatus('bjStatus', 'Karte ziehen, halten oder verdoppeln?'); bjUI();
+  for (const h of [B.hands[0].cards, B.d, B.hands[0].cards, B.d]) { h.push(bjDraw()); bjUI(); await sleep(260); }
+  if (B.d[0].r === 'A' && bet >= 2) { B.phase = 'insurance'; setStatus('bjStatus', `Der Dealer zeigt ein Ass. Für ${money(Math.floor(bet / 2))} gegen Blackjack versichern?`); return bjUI(); }
+  bjPeek();
 }
-async function bjHit() {
+function bjInsure(yes) {
+  if (B.phase !== 'insurance') return;
+  if (yes) { const c = Math.floor(B.hands[0].bet / 2); if (!takeBet(c)) return; B.ins = c; }
+  bjPeek();
+}
+async function bjDealer() {
+  B.phase = 'dealer'; B.hide = false; bjUI();
+  if (B.hands.some(h => bjSum(h.cards) <= 21)) { await sleep(450); while (bjSum(B.d) < 17) { B.d.push(bjDraw()); bjUI(); await sleep(520); } }
+  bjFinish();
+}
+function bjNext() {
+  while (B.cur < B.hands.length && B.hands[B.cur].done) B.cur++;
+  if (B.cur >= B.hands.length) return bjDealer();
+  if (B.hands.length > 1) setStatus('bjStatus', `Hand ${B.cur + 1} ist dran.`);
+  bjUI();
+}
+function bjHit() {
   if (B.phase !== 'player') return;
-  B.p.push(bjDraw()); bjUI();
-  const s = bjSum(B.p);
-  if (s > 21) return bjEnd(0, `Überkauft mit ${s}.`, 'Bust');
-  if (s === 21) return bjStand();
+  const h = B.hands[B.cur]; h.cards.push(bjDraw());
+  if (bjSum(h.cards) >= 21) h.done = true;
+  bjUI(); if (h.done) bjNext();
 }
-async function bjStand() {
-  if (B.phase !== 'player') return;
-  B.phase = 'dealer'; B.hide = false; bjUI(); await sleep(450);
-  while (bjSum(B.d) < 17) { B.d.push(bjDraw()); bjUI(); await sleep(520); }
-  const p = bjSum(B.p), d = bjSum(B.d);
-  if (d > 21) return bjEnd(B.bet * 2, `Dealer überkauft mit ${d}.`, 'Sieg');
-  if (p > d) return bjEnd(B.bet * 2, `${p} gegen ${d} – gewonnen.`, 'Sieg');
-  if (p === d) return bjEnd(B.bet, `${p} gegen ${d} – unentschieden.`, 'Push');
-  bjEnd(0, `${p} gegen ${d} – verloren.`, 'Niederlage');
+function bjStand() { if (B.phase !== 'player') return; B.hands[B.cur].done = true; bjNext(); }
+function bjDouble() {
+  const h = B.hands[B.cur];
+  if (B.phase !== 'player' || h.cards.length !== 2 || !takeBet(h.bet)) return;
+  h.bet *= 2; h.cards.push(bjDraw()); h.done = true; bjUI(); bjNext();
 }
-async function bjDouble() {
-  if (B.phase !== 'player' || B.p.length !== 2 || !takeBet(B.bet)) return;
-  B.bet *= 2; B.p.push(bjDraw()); bjUI();
-  const s = bjSum(B.p);
-  if (s > 21) return bjEnd(0, `Überkauft mit ${s}.`, 'Bust');
-  await sleep(350); bjStand();
+function bjSplit() {
+  const h = B.hands[B.cur];
+  if (B.phase !== 'player' || B.hands.length !== 1 || h.cards.length !== 2 || bjVal(h.cards[0]) !== bjVal(h.cards[1]) || !takeBet(h.bet)) return;
+  B.hands = h.cards.map(c => ({ cards: [c, bjDraw()], bet: h.bet }));
+  B.hands.forEach(x => x.done = bjSum(x.cards) === 21);
+  B.cur = 0; $('#bjHands').innerHTML = ''; bjUI(); bjNext();
 }
-function initBlackjack() { $('#bjDeal').onclick = bjDeal; $('#bjHit').onclick = bjHit; $('#bjStand').onclick = bjStand; $('#bjDouble').onclick = bjDouble; bjUI(); }
+function initBlackjack() {
+  $('#bjDeal').onclick = bjDeal; $('#bjHit').onclick = bjHit; $('#bjStand').onclick = bjStand; $('#bjDouble').onclick = bjDouble; $('#bjSplit').onclick = bjSplit;
+  $('#bjIns').onclick = () => bjInsure(true); $('#bjNoIns').onclick = () => bjInsure(false); bjUI();
+}
 
 /* ---------- Roulette ---------- */
 const ORDER = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
@@ -1791,6 +1927,7 @@ function crashTick(now) {
   if (C.m >= C.at) return crashStop(false, C.at);
   if (C.auto && C.m >= C.auto) return crashStop(true, C.auto);
   $('#crashMult').textContent = fx(C.m); crashUI(); crashDraw(now);
+  if (now - (C.snd || 0) > 260) { C.snd = now; sfx.rise(C.m); }
   requestAnimationFrame(crashTick);
 }
 function crashStart() {
@@ -2123,43 +2260,72 @@ function initWallet() {
 }
 
 /* ---------- Slot ---------- */
-const SYM = [['7', 1, '#ee4b45'], ['★', 2, '#dba642'], ['◆', 3, '#6fc3ff'], ['☾', 4, '#c9a0ff'], ['A', 5, '#62d9a3'], ['K', 6, '#f08a4b'], ['Q', 7, '#ff9ecb'], ['J', 8, '#8fd3c8']];
+const SYM = [['7', 1, '#ee4b45'], ['★', 2, '#dba642'], ['◆', 3, '#6fc3ff'], ['☾', 4, '#c9a0ff'], ['A', 5, '#62d9a3'], ['K', 6, '#f08a4b'], ['Q', 7, '#ff9ecb'], ['J', 8, '#8fd3c8'], ['Wild', 2, '#f4eadc'], ['Frei', 2, '#f4eadc']];
+const WILD = 8, SCAT = 9, SW = SYM.reduce((a, s) => a + s[1], 0);
 const SLINES = [[1, 1, 1, 1, 1], [0, 0, 0, 0, 0], [2, 2, 2, 2, 2], [0, 1, 2, 1, 0], [2, 1, 0, 1, 2], [0, 0, 1, 2, 2], [2, 2, 1, 0, 0], [1, 0, 0, 0, 1], [1, 2, 2, 2, 1], [0, 1, 1, 1, 0]];
+// Wertet eine Linie: gleiche Symbole von links, Wild ersetzt jedes Symbol, das Freispiel-Symbol unterbricht
+function slotLine(c) {
+  if (c[0] === SCAT) return null;
+  let s = c[0] === WILD ? -1 : c[0], n = 1;
+  for (; n < 5; n++) { const x = c[n]; if (x === SCAT) break; if (x === WILD) continue; if (s === -1) s = x; else if (x !== s) break; }
+  return n >= 3 ? [s === -1 ? 0 : s, n] : null;
+}
+const S = { busy: false, grid: [], free: 0, freeBet: 0, rtp: 0 };
 const SPAY = (() => {
   const nice = v => v >= 20 ? Math.round(v) : Math.round(v * 10) / 10;
-  const raw = SYM.map(s => { const p = s[1] / 36, x = (1 / p) ** 1.5; return [p, [x, 4 * x, 20 * x]]; });
-  const ev = raw.reduce((e, [p, y]) => e + p ** 3 * (1 - p) * y[0] + p ** 4 * (1 - p) * y[1] + p ** 5 * y[2], 0);
-  return raw.map(([, y]) => y.map(v => nice(v * 0.97 / ev)));
+  const raw = SYM.slice(0, 8).map(s => { const x = (SW / s[1]) ** 1.5; return [x, 4 * x, 20 * x]; });
+  // Alle 10^5 Linienbilder exakt durchzählen
+  const hit = raw.map(() => [0, 0, 0]), c = [0, 0, 0, 0, 0];
+  (function walk(i, p) {
+    if (i === 5) { const w = slotLine(c); if (w) hit[w[0]][w[1] - 3] += p; return; }
+    for (let s = 0; s < SYM.length; s++) { c[i] = s; walk(i + 1, p * SYM[s][1] / SW); }
+  })(0, 1);
+  const ev = t => t.reduce((e, y, s) => e + y[0] * hit[s][0] + y[1] * hit[s][1] + y[2] * hit[s][2], 0);
+  // Freispiele: 3 oder mehr Freispiel-Symbole auf 15 Feldern bringen 5 Gratisdrehs
+  const ps = SYM[SCAT][1] / SW, q = 1 - (1 - ps) ** 15 - 15 * ps * (1 - ps) ** 14 - 105 * ps ** 2 * (1 - ps) ** 13;
+  const pays = raw.map(y => y.map(v => nice(v * 0.97 * (1 - 5 * q) / ev(raw))));
+  S.rtp = ev(pays) / (1 - 5 * q);
+  return pays;
 })();
-const S = { busy: false, grid: [] };
-const slotSym = () => { let r = rint(36); for (let i = 0; i < SYM.length; i++) { r -= SYM[i][1]; if (r < 0) return i; } return 7; };
-const slotCell = (s, cls = '') => `<div class="sc ${cls}" style="color:${SYM[s][2]}">${SYM[s][0]}</div>`;
+const slotSym = () => { let r = rint(SW); for (let i = 0; i < SYM.length; i++) { r -= SYM[i][1]; if (r < 0) return i; } return 7; };
+const slotCell = (s, cls = '') => `<div class="sc ${cls}${s >= WILD ? ' sp' + s : ''}" style="color:${SYM[s][2]}">${SYM[s][0]}</div>`;
 function slotDraw(win = new Set(), spinning = 5) {
   let h = '';
   for (let r = 0; r < 3; r++) for (let c = 0; c < 5; c++) h += c >= 5 - spinning ? slotCell(Math.floor(Math.random() * 8), 'blur') : slotCell(S.grid[c][r], win.has(c * 3 + r) ? 'win' : win.size ? 'dim' : '');
   $('#slotGrid').innerHTML = h;
 }
+function slotUI() {
+  $('#slotBtn').textContent = S.free ? `Freispiel drehen (${S.free} übrig)` : 'Drehen';
+  $('#slotBtn').disabled = S.busy; betInput('slots').disabled = S.busy || S.free > 0;
+}
 async function slotSpin() {
   if (S.busy) return false;
-  const bet = getBet('slots'); if (!takeBet(bet)) return false;
-  S.busy = true; $('#slotBtn').disabled = true; setStatus('slotStatus', 'Die Walzen drehen sich …');
+  const free = S.free > 0, bet = free ? S.freeBet : getBet('slots');
+  if (!free && !takeBet(bet)) return false;
+  if (free) S.free--;
+  S.busy = true; slotUI(); setStatus('slotStatus', free ? 'Freispiel läuft …' : 'Die Walzen drehen sich …');
   S.grid = Array.from({ length: 5 }, () => [slotSym(), slotSym(), slotSym()]);
-  const fast = matchMedia('(prefers-reduced-motion:reduce)').matches;
-  for (let stop = 0; stop <= 5 && !fast; stop++) { for (let k = 0; k < (stop ? 3 : 6); k++) { slotDraw(new Set(), 5 - stop); await sleep(55); } if (stop && stop < 6) sfx.tick(); }
-  const win = new Set(), hits = []; let total = 0;
-  SLINES.forEach((ln, li) => {
-    const s = S.grid[0][ln[0]]; let n = 1; while (n < 5 && S.grid[n][ln[n]] === s) n++;
-    if (n >= 3) { total += SPAY[s][n - 3] * bet / 10; hits.push(`${n}× ${SYM[s][0]}`); for (let c = 0; c < n; c++) win.add(c * 3 + ln[c]); }
+  if (!matchMedia('(prefers-reduced-motion:reduce)').matches) for (let stop = 0; stop < 5; stop++) { for (let k = 0; k < (stop ? 3 : 6); k++) { slotDraw(new Set(), 5 - stop); await sleep(55); } sfx.reel(); }
+  const win = new Set(), hits = []; let total = 0, scat = 0;
+  SLINES.forEach(ln => {
+    const w = slotLine(ln.map((r, c) => S.grid[c][r]));
+    if (w) { total += SPAY[w[0]][w[1] - 3] * bet / 10; hits.push(`${w[1]}× ${SYM[w[0]][0]}`); for (let c = 0; c < w[1]; c++) win.add(c * 3 + ln[c]); }
   });
+  S.grid.forEach((col, c) => col.forEach((s, r) => { if (s === SCAT) scat++; }));
+  if (scat >= 3) { S.free += 5; S.freeBet = bet; S.grid.forEach((col, c) => col.forEach((s, r) => s === SCAT && win.add(c * 3 + r))); }
   S.busy = false; slotDraw(win, 0);
-  const r = settle('slots', bet, total, { quiet: total < bet * 10 });
-  setStatus('slotStatus', hits.length ? `${hits.join(', ')}: ${r.profit > 0 ? signed(r.profit) : 'Auszahlung ' + money(total) + ', ' + signed(r.profit)}.` : `Keine Gewinnlinie. ${signed(r.profit)}.`, r.profit > 0 ? 'win' : 'lose');
-  $('#slotBtn').disabled = false; return true;
+  const r = settle('slots', free ? 0 : bet, total, { label: free ? 'Freispiel' : undefined, quiet: total < bet * 10 });
+  let msg = hits.length ? `${hits.join(', ')}: Auszahlung ${money(total)}.` : free ? 'Freispiel ohne Gewinnlinie.' : `Keine Gewinnlinie. ${signed(r.profit)}.`;
+  if (scat >= 3) { msg += ' 5 Freispiele gewonnen!'; sfx.big(); }
+  setStatus('slotStatus', msg, scat >= 3 || r.profit > 0 ? 'win' : r.profit < 0 ? 'lose' : '');
+  slotUI(); return true;
 }
 function initSlots() {
   S.grid = Array.from({ length: 5 }, () => [slotSym(), slotSym(), slotSym()]); slotDraw(new Set(), 0);
   $('#slotBtn').onclick = slotSpin;
-  $('#slotPays').innerHTML = SYM.map((s, i) => `<tr><td style="color:${s[2]};font:600 20px var(--display)">${s[0]}</td>${SPAY[i].map(v => `<td>${fx(v / 10)}</td>`).join('')}</tr>`).join('');
+  $('#slotPays').innerHTML = SYM.slice(0, 8).map((s, i) => `<tr><td style="color:${s[2]};font:600 20px var(--display)">${s[0]}</td>${SPAY[i].map(v => `<td>${fx(v / 10)}</td>`).join('')}</tr>`).join('');
+  $('#slotRtp').textContent = (S.rtp * 100).toFixed(1).replace('.', ',') + ' %';
+  slotUI();
 }
 
 /* ---------- Autospiel ---------- */
@@ -2209,6 +2375,118 @@ function initLobby() {
     const a = active(), id = f.dataset.fav; a.favs = a.favs.includes(id) ? a.favs.filter(x => x !== id) : [...a.favs, id]; save(); sfx.click(); renderGames();
   });
 }
+/* ---------- Turnier ---------- */
+let tour = { day: '', best: {}, paid: {} };
+const TOUR_N = 20, TOUR_PRIZE = [300, 150, 75];
+function tourToday() { if (!tour || tour.day !== today()) tour = { day: today(), best: {}, paid: {} }; return tour; }
+const tourBoard = () => { const t = tourToday(); return accounts.filter(a => t.best[a.id] !== undefined).map(a => ({ a, pts: t.best[a.id] })).sort((x, y) => y.pts - x.pts); };
+const runOf = a => a.run && a.run.day === today() ? a.run : (a.run = null);
+function tourRound(a, bet, payout) {
+  const r = runOf(a); if (!r || !bet) return;
+  r.pts += Math.round((payout / bet - 1) * 100); r.left--;
+  if (r.left > 0) return;
+  const t = tourToday(); if (t.best[a.id] === undefined || r.pts > t.best[a.id]) t.best[a.id] = r.pts;
+  a.run = null;
+  const place = tourBoard().findIndex(x => x.a === a);
+  let msg = `Turnierlauf beendet: <b>${num(r.pts)} Punkte</b>. Dein bester Lauf liegt auf Platz ${place + 1}.`;
+  if (!t.paid[a.id] && place < 3 && r.pts > 0) { t.paid[a.id] = true; credit(a, TOUR_PRIZE[place], 'Turnier-Preisgeld'); msg += ` Preisgeld: <b>+${num(TOUR_PRIZE[place])} $</b>`; }
+  setTimeout(() => toast(msg, 'big', 6000), 1300);
+}
+function renderRun() {
+  const r = runOf(active()), el = $('#runPill');
+  el.hidden = !r; if (r) el.textContent = `Turnier: Runde ${TOUR_N - r.left + 1} von ${TOUR_N} · ${num(r.pts)} P`;
+}
+hooks.turnier = () => {
+  const a = active(), r = runOf(a), t = tourToday(), board = tourBoard();
+  $('#tourState').textContent = r ? `Lauf aktiv, noch ${r.left} Runden` : t.best[a.id] !== undefined ? 'Dein bester Lauf heute' : 'Heute noch kein Lauf';
+  $('#tourPts').textContent = r ? `${num(r.pts)} Punkte` : t.best[a.id] !== undefined ? `${num(t.best[a.id])} Punkte` : '–';
+  $('#tourStart').disabled = !!r; $('#tourStart').textContent = r ? 'Lauf läuft' : t.best[a.id] !== undefined ? 'Neuen Lauf starten' : 'Lauf starten';
+  $('#tourBody').innerHTML = board.map((x, i) => `<tr class="${x.a === a ? 'me' : ''}"><td>${i ? i + 1 : '<span class="rank1">1</span>'}</td><td>${esc(x.a.name)}</td><td>${num(x.pts)}</td><td>${i < 3 && t.paid[x.a.id] ? money(TOUR_PRIZE[i]) : '–'}</td></tr>`).join('') || '<tr><td></td><td colspan="3" class="empty" style="text-align:left">Noch kein Lauf heute. Starte den ersten.</td></tr>';
+};
+function initTour() {
+  $('#tourStart').onclick = () => {
+    const a = active(); if (isLocked(a)) return openPin('unlock');
+    if (runOf(a)) return;
+    if (roundRunning()) return toast('Beende zuerst die laufende Runde.');
+    a.run = { day: today(), left: TOUR_N, pts: 0 }; save(); renderTop(); hooks.turnier(); sfx.win();
+    toast(`Lauf gestartet. Deine nächsten ${TOUR_N} Runden zählen.`, 'win');
+  };
+}
+
+/* ---------- Spiellimits ---------- */
+const dayOf = a => a.day && a.day.d === today() ? a.day : (a.day = { d: today(), p: 0 });
+function limitBlock(a, amount) {
+  const l = a.limits;
+  if (l.pause === today()) return 'Du hast für heute eine Pause eingelegt. Morgen geht es weiter.';
+  if (l.loss > 0) {
+    const lost = Math.max(0, -dayOf(a).p);
+    if (lost >= l.loss) return `Dein Verlustlimit von ${money(l.loss)} für heute ist erreicht.`;
+    if (lost + amount > l.loss) return `Dieser Einsatz könnte dein Verlustlimit überschreiten. Heute sind noch ${money(l.loss - lost)} möglich.`;
+  }
+  return '';
+}
+function renderLimits() {
+  const a = active(), l = a.limits, p = dayOf(a).p;
+  $('#limLoss').value = l.loss || ''; $('#limRemind').value = String(l.remind);
+  $('#limNow').textContent = `Heutiges Ergebnis: ${signed(p)}.` + (l.loss ? ` Verlustlimit: ${money(l.loss)}.` : ' Kein Verlustlimit gesetzt.');
+  $('#limPause').disabled = l.pause === today(); $('#limPause').textContent = l.pause === today() ? 'Pause läuft bis morgen' : 'Für heute pausieren';
+}
+const sess = { t0: Date.now(), last: Date.now(), profit: 0, n: 0, wag: 0 };
+function renderSess() { $('#sessText').textContent = sess.n ? `Diese Sitzung: ${signed(sess.profit)} in ${sess.n} ${sess.n === 1 ? 'Runde' : 'Runden'}, Umsatz ${money(sess.wag)}` : 'Diese Sitzung: noch keine Runde'; }
+function initLimits() {
+  $('#limSave').onclick = () => {
+    const a = active(); if (isLocked(a)) return openPin('unlock');
+    a.limits.loss = Math.max(0, Math.floor(+$('#limLoss').value || 0)); a.limits.remind = +$('#limRemind').value || 0;
+    save(); renderLimits(); toast('Limits gespeichert.');
+  };
+  $('#limPause').onclick = () => {
+    const a = active(); if (isLocked(a)) return openPin('unlock');
+    if (!confirm('Bis morgen keine neuen Einsätze mehr? Das lässt sich heute nicht rückgängig machen.')) return;
+    a.limits.pause = today(); save(); renderLimits(); toast('Pause aktiv. Bis morgen sind keine Einsätze möglich.');
+  };
+  $('#sessReset').onclick = () => { Object.assign(sess, { t0: Date.now(), last: Date.now(), profit: 0, n: 0, wag: 0 }); renderSess(); };
+  setInterval(() => {
+    const m = active().limits.remind;
+    if (m > 0 && Date.now() - sess.last >= m * 60000) { sess.last = Date.now(); toast(`Du spielst seit ${Math.round((Date.now() - sess.t0) / 60000)} Minuten. Diese Sitzung: <b>${signed(sess.profit)}</b>. Zeit für eine Pause?`, '', 8000); }
+  }, 20000);
+  renderSess();
+}
+/* ---------- Effekte ---------- */
+const calm = () => matchMedia('(prefers-reduced-motion:reduce)').matches;
+function countTo(el, to) {
+  const from = typeof el._v === 'number' ? el._v : to, t0 = performance.now();
+  el._v = to; cancelAnimationFrame(el._raf);
+  if (from === to || calm()) { el.textContent = money(to); return; }
+  const step = now => { const f = Math.min(1, (now - t0) / 450), e = 1 - (1 - f) ** 3; el.textContent = money(from + (to - from) * e); if (f < 1) el._raf = requestAnimationFrame(step); else el.textContent = money(to); };
+  el._raf = requestAnimationFrame(step);
+}
+function confetti() {
+  if (calm()) return;
+  const cv = $('#fx'), c = cv.getContext('2d'), w = cv.width = innerWidth, h = cv.height = innerHeight, cols = ['#dba642', '#62d9a3', '#ee4b45', '#f4eadc', '#c9a0ff', '#6fc3ff'];
+  const ps = Array.from({ length: 150 }, () => ({ x: w / 2 + (Math.random() - 0.5) * w * 0.3, y: h * 0.45, vx: (Math.random() - 0.5) * 17, vy: -Math.random() * 17 - 4, s: 5 + Math.random() * 7, r: Math.random() * 6, vr: (Math.random() - 0.5) * 0.4, c: cols[Math.floor(Math.random() * cols.length)] }));
+  const t0 = performance.now(); cancelAnimationFrame(cv._raf);
+  const draw = now => {
+    const age = (now - t0) / 2600; c.clearRect(0, 0, w, h);
+    if (age >= 1) return;
+    for (const p of ps) { p.vy += 0.42; p.vx *= 0.99; p.x += p.vx; p.y += p.vy; p.r += p.vr; c.save(); c.translate(p.x, p.y); c.rotate(p.r); c.globalAlpha = Math.min(1, (1 - age) * 2); c.fillStyle = p.c; c.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); c.restore(); }
+    cv._raf = requestAnimationFrame(draw);
+  };
+  cv._raf = requestAnimationFrame(draw);
+}
+function fxRound(profit, big) {
+  const st = $(`#p-${page} .stage`);
+  if (st && profit && !calm()) {
+    st.classList.remove('fx-win', 'fx-lose'); void st.offsetWidth; st.classList.add(profit > 0 ? 'fx-win' : 'fx-lose');
+    if (profit > 0) { const f = document.createElement('div'); f.className = 'floaty' + (big ? ' big' : ''); f.textContent = signed(profit); st.append(f); setTimeout(() => f.remove(), 1400); }
+  }
+  if (big) confetti();
+}
+function sessTrack(bet, profit) {
+  sess.n++; sess.wag += bet; sess.profit += profit;
+  if (profit > 0) { sess.streak = (sess.streak || 0) + 1; if ([3, 5, 7, 10, 15, 20].includes(sess.streak)) { const n = sess.streak; setTimeout(() => { toast(`Serie: <b>${n} Siege in Folge</b>`, 'win'); sfx.streak(n); }, 500); } }
+  else if (profit < 0) sess.streak = 0;
+  renderSess();
+}
 
 /* ---------- Rangliste ---------- */
 let rangSort = 'balance';
@@ -2240,7 +2518,7 @@ hooks.profil = () => {
   $('#achCount').textContent = `${ACH.filter(x => a.ach[x[0]]).length} von ${ACH.length}`;
   $('#achs').innerHTML = ACH.map(([k, n, d]) => `<div class="ach${a.ach[k] ? ' got' : ''}"><b>${n}</b><span>${d}</span></div>`).join('');
 };
-const roundRunning = () => M.on || T.on || C.on || B.phase !== 'idle' || R.busy || D.busy || P.balls.length > 0 || L.busy || K.busy || H.on || W.busy || S.busy;
+const roundRunning = () => M.on || T.on || C.on || B.phase !== 'idle' || R.busy || D.busy || P.balls.length > 0 || L.busy || K.busy || H.on || W.busy || S.busy || S.free > 0;
 function setActive(id) {
   if (id === activeId) return;
   if (roundRunning()) return toast('Beende zuerst die laufende Runde.');
@@ -2350,7 +2628,7 @@ function init() {
     };
     betInput(g).addEventListener('input', e => e.target.value = e.target.value.replace(/\D/g, '').slice(0, 9));
   });
-  initLobby(); initMines(); initDice(); initPlinko(); initTower(); initBlackjack(); initRoulette(); initCrash(); initLimbo(); initKeno(); initHilo(); initWheel(); initSlots(); initFair(); initWallet(); initProfil();
+  initLobby(); initMines(); initDice(); initPlinko(); initTower(); initBlackjack(); initRoulette(); initCrash(); initLimbo(); initKeno(); initHilo(); initWheel(); initSlots(); initTour(); initLimits(); initFair(); initWallet(); initProfil();
   autoplay('slotAuto', 'slots', slotSpin); autoplay('limboAuto', 'limbo', limboPlay); autoplay('kenoAuto', 'keno', kenoPlay);
   autoplay('wheelAuto', 'wheel', wheelSpin); autoplay('diceAuto', 'dice', () => diceRoll(false)); initSettings();
   seg('rangSort', v => { rangSort = v; hooks.rang(); });
@@ -2358,7 +2636,7 @@ function init() {
   document.addEventListener('click', e => {
     const g = e.target.closest('[data-go]'); if (g) { e.preventDefault(); sfx.click(); return go(g.dataset.go); }
     const o = e.target.closest('[data-open]');
-    if (o) { const k = o.dataset.open; if (k === 'wallet') renderWallet(); if (k === 'fair') renderFair(); return $({ settings: '#dlgSettings', wallet: '#dlgWallet', fair: '#dlgFair' }[k]).showModal(); }
+    if (o) { const k = o.dataset.open; if (k === 'wallet') renderWallet(); if (k === 'fair') renderFair(); if (k === 'limits') renderLimits(); return $({ settings: '#dlgSettings', wallet: '#dlgWallet', fair: '#dlgFair', limits: '#dlgLimits' }[k]).showModal(); }
     const c = e.target.closest('[data-close]'); if (c) c.closest('dialog').close();
   });
   $('.brand').onclick = e => { e.preventDefault(); go('lobby'); };
